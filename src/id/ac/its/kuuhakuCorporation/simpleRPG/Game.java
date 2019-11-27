@@ -3,8 +3,10 @@ package id.ac.its.kuuhakuCorporation.simpleRPG;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.display.Display;
+import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.ImageLoader;
 
 public class Game implements Runnable{
 	private Display display;
@@ -17,6 +19,8 @@ public class Game implements Runnable{
 	private BufferStrategy bs;
 	private Graphics g;
 	
+	private BufferedImage testImage;
+	
 	public Game(String title,int height,int width) {
 		this.width = width;
 		this.height = height;
@@ -25,6 +29,7 @@ public class Game implements Runnable{
 	
 	private void init() {
 		display = new Display(title,height,width);
+		testImage = ImageLoader.loadImage("/textures/test.png");
 	}
 	
 	private void tick() {
@@ -42,10 +47,7 @@ public class Game implements Runnable{
 		g.clearRect(0, 0, height, width);
 		// Draw Here
 		
-		g.setColor(Color.red);
-		g.fillRect(10, 50, 50, 70);
-		g.setColor(Color.green);
-		g.fillRect(0, 0, 10, 10);
+		g.drawImage(testImage, 20, 20, null);
 		
 		// End Drawing
 		bs.show();
