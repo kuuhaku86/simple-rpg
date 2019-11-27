@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.display.Display;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.ImageLoader;
+import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.SpriteSheet;
 
 public class Game implements Runnable{
 	private Display display;
@@ -17,19 +18,21 @@ public class Game implements Runnable{
 	private Thread thread;
 	
 	private BufferStrategy bs;
+	private SpriteSheet sheet;
 	private Graphics g;
 	
-	private BufferedImage testImage;
+	private BufferedImage test;
 	
-	public Game(String title,int height,int width) {
+	public Game(String title,int width,int height) {
 		this.width = width;
 		this.height = height;
 		this.title = title;
 	}
 	
 	private void init() {
-		display = new Display(title,height,width);
-		testImage = ImageLoader.loadImage("/textures/test.png");
+		display = new Display(title,width,height);
+		test = ImageLoader.loadImage("/textures/test.png");
+		sheet = new SpriteSheet(test);
 	}
 	
 	private void tick() {
@@ -44,10 +47,10 @@ public class Game implements Runnable{
 		}
 		g = bs.getDrawGraphics();
 		//Clear Screen
-		g.clearRect(0, 0, height, width);
+		g.clearRect(0, 0, width, height);
 		// Draw Here
 		
-		g.drawImage(testImage, 20, 20, null);
+		g.drawImage(sheet.crop(250, 150, 100, 100), 5, 5, null);
 		
 		// End Drawing
 		bs.show();
