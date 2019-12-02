@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.display.Display;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
+import id.ac.its.kuuhakuCorporation.simpleRPG.input.KeyManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.states.GameState;
 import id.ac.its.kuuhakuCorporation.simpleRPG.states.MenuState;
 import id.ac.its.kuuhakuCorporation.simpleRPG.states.State;
@@ -24,22 +25,29 @@ public class Game implements Runnable{
 	private State gameState;
 	private State menuState;
 	
+	//Input
+	private KeyManager keyManager;
+	
 	public Game(String title,int width,int height) {
 		this.width = width;
 		this.height = height;
 		this.title = title;
+		keyManager = new KeyManager();
 	}
 	
 	private void init() {
 		display = new Display(title,width,height);
+		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
 		
-		gameState = new GameState();
-		menuState = new MenuState();
+		gameState = new GameState(this);
+		menuState = new MenuState(this);
 		State.setState(gameState);
 	}
 	
 	private void tick() {
+		keyManager.tick();
+		
 		if(State.getState() != null)
 			State.getState().tick();
 	}
@@ -95,6 +103,10 @@ public class Game implements Runnable{
 		 }
 		 
 		 stop();
+	}
+	
+	public KeyManager getKeyManager() {
+		return keyManager;
 	}
 	
 	public synchronized void start() {
