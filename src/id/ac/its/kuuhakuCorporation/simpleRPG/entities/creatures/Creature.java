@@ -38,7 +38,7 @@ public abstract class Creature extends Entity {
 
 	public float getyMove() {
 		return yMove;
-	}
+	} 
 
 	public void setyMove(float yMove) {
 		this.yMove = yMove;
