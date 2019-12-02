@@ -2,7 +2,6 @@ package id.ac.its.kuuhakuCorporation.simpleRPG.worlds;
 
 import java.awt.Graphics;
 
-import id.ac.its.kuuhakuCorporation.simpleRPG.Game;
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
 import id.ac.its.kuuhakuCorporation.simpleRPG.tiles.Tile;
 import id.ac.its.kuuhakuCorporation.simpleRPG.utils.Utils;
@@ -38,6 +37,9 @@ public class World {
 	}
 	
 	public Tile getTile(int x, int y) {
+		if(x < 0 || y < 0 || x >= width || y >= height)
+			return Tile.grassTile;
+		
 		Tile t = Tile.tiles[tiles[x][y]];
 		if(t == null)
 			return Tile.dirtTile;
