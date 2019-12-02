@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.display.Display;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
+import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.GameCamera;
 import id.ac.its.kuuhakuCorporation.simpleRPG.input.KeyManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.states.GameState;
 import id.ac.its.kuuhakuCorporation.simpleRPG.states.MenuState;
@@ -13,7 +14,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.states.State;
 public class Game implements Runnable{
 	private Display display;
 	public String title;
-	public int width,height;
+	private int width,height;
 	
 	private boolean running = false;	
 	private Thread thread;
@@ -28,6 +29,9 @@ public class Game implements Runnable{
 	//Input
 	private KeyManager keyManager;
 	
+	//Camera
+	private GameCamera gameCamera;
+	
 	public Game(String title,int width,int height) {
 		this.width = width;
 		this.height = height;
@@ -39,6 +43,8 @@ public class Game implements Runnable{
 		display = new Display(title,width,height);
 		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
+		
+		gameCamera = new GameCamera(this, 0,0);
 		
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
@@ -107,6 +113,18 @@ public class Game implements Runnable{
 	
 	public KeyManager getKeyManager() {
 		return keyManager;
+	}
+	
+	public GameCamera getGameCamera() {
+		return gameCamera;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
 	}
 	
 	public synchronized void start() {
