@@ -34,7 +34,7 @@ public class Assets {
 		dirt = sheet.crop(width, 0, width, height);
 		grass = sheet.crop(width * 2, 0, width, height);
 		stone = sheet.crop(width * 3, 0, width, height);
-		tree = sheet.crop(0, 0, width, height);
+		tree = sheet.crop(0, 0, width, height*2);
 		rock = sheet.crop(0, height*2, width, height);
 	}
 }

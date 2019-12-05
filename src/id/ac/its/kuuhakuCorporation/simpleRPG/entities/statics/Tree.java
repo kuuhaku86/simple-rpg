@@ -21,6 +21,11 @@ public class Tree extends StaticEntity {
 	public void tick() {
 		
 	}
+	
+	@Override
+	public void die() {
+	
+	}
 
 	@Override
 	public void render(Graphics g) {
