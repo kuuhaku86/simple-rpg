@@ -54,6 +54,9 @@ public class Player extends Creature {
 		if(attackTimer < attackCooldown)
 			return;
 		
+		if(inventory.isActive())
+			return;
+		
 		Rectangle col = getCollisionBounds(0, 0);
 		Rectangle att = new Rectangle();
 		int attSize = 20;
@@ -112,6 +115,9 @@ public class Player extends Creature {
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(getCurrentAnimationFrame(),(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+	}
+	
+	public void postRender(Graphics g) {
 		inventory.render(g);
 	}
 	
