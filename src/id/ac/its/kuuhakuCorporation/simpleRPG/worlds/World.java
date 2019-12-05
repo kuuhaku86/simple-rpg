@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.EntityManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Player;
+import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Rock;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Tree;
 import id.ac.its.kuuhakuCorporation.simpleRPG.tiles.Tile;
 import id.ac.its.kuuhakuCorporation.simpleRPG.utils.Utils;
@@ -23,7 +24,7 @@ public class World {
 		entityManager = new EntityManager(handler,new Player(handler, 100,100));
 		entityManager.addEntity(new Tree(handler,100,250));
 		entityManager.addEntity(new Tree(handler,150,350));
-		entityManager.addEntity(new Tree(handler,100,450));
+		entityManager.addEntity(new Rock(handler,200,450));
 		
 		loadWorld(path);
 		

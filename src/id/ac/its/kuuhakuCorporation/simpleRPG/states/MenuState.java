@@ -31,6 +31,7 @@ public class MenuState extends State{
 	@Override
 	public void tick() {
 		uiManager.tick();
+		
 	}
 
 	@Override
