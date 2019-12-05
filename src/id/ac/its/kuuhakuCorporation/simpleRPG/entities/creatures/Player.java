@@ -9,11 +9,14 @@ import javax.swing.text.html.parser.Entity;
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Animation;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
+import id.ac.its.kuuhakuCorporation.simpleRPG.inventory.Inventory;
 
 public class Player extends Creature {
 
 	private Animation animDown,animUp,animLeft,animRight;
 	private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
+	private Inventory inventory;
+	
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -27,6 +30,8 @@ public class Player extends Creature {
 		animUp= new Animation(500, Assets.player_up);
 		animLeft = new Animation(500, Assets.player_left);
 		animRight = new Animation(500, Assets.player_right);
+		
+		inventory = new Inventory(handler);
 	}
 
 	@Override
@@ -40,6 +45,7 @@ public class Player extends Creature {
 		move();
 		handler.getGameCamera().certerOnEntity(this);
 		checkAttacks();
+		inventory.tick();
 	}
 	
 	private void checkAttacks() {
@@ -106,11 +112,7 @@ public class Player extends Creature {
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(getCurrentAnimationFrame(),(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
-	
-//		g.setColor(Color.red);
-//		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
-//				(int) (y + bounds.y - handler.getGameCamera().getyOffset()),
-//				bounds.width, bounds.height);
+		inventory.render(g);
 	}
 	
 	private BufferedImage getCurrentAnimationFrame() {
@@ -122,6 +124,14 @@ public class Player extends Creature {
 			return animUp.getCurrentFrame();
 		else
 			return animDown.getCurrentFrame();
+	}
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 	
 }
