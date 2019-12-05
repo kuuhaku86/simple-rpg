@@ -2,6 +2,7 @@ package id.ac.its.kuuhakuCorporation.simpleRPG;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.GameCamera;
 import id.ac.its.kuuhakuCorporation.simpleRPG.input.KeyManager;
+import id.ac.its.kuuhakuCorporation.simpleRPG.input.MouseManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.worlds.World;
 
 public class Handler {
@@ -21,6 +22,10 @@ public class Handler {
 		return game.getKeyManager();
 	}
 	
+	
+	public MouseManager getMouseManager() {
+		return game.getMouseManager();
+	}
 	public int getWidth() {
 		return game.getWidth();
 	}
