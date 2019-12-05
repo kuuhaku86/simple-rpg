@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
+import id.ac.its.kuuhakuCorporation.simpleRPG.items.Item;
 import id.ac.its.kuuhakuCorporation.simpleRPG.tiles.Tile;
 
 public class Tree extends StaticEntity {
@@ -24,7 +25,8 @@ public class Tree extends StaticEntity {
 	
 	@Override
 	public void die() {
-	
+		handler.getWorld().getItemManager().addItem(Item.woodItem.createNew((int) x,(int) y));
+		
 	}
 
 	@Override

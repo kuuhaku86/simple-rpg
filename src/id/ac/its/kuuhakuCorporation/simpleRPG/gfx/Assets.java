@@ -7,6 +7,7 @@ public class Assets {
 	private static final int width = 32, height = 32;
 	
 	public static BufferedImage  dirt, grass, stone, tree,rock;
+	public static BufferedImage  wood;
 	public static BufferedImage[] player_down,player_up,player_left,player_right;
 	public static BufferedImage[] btn_start;
 	
@@ -36,5 +37,7 @@ public class Assets {
 		stone = sheet.crop(width * 3, 0, width, height);
 		tree = sheet.crop(0, 0, width, height*2);
 		rock = sheet.crop(0, height*2, width, height);
+		
+		wood = sheet.crop(width, height, width, height);
 	}
 }

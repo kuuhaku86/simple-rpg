@@ -7,6 +7,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.entities.EntityManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Player;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Rock;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Tree;
+import id.ac.its.kuuhakuCorporation.simpleRPG.items.ItemManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.tiles.Tile;
 import id.ac.its.kuuhakuCorporation.simpleRPG.utils.Utils;
 
@@ -18,10 +19,13 @@ public class World {
 	private int[][] tiles;
 	
 	private EntityManager entityManager;
+	private ItemManager itemManager;
 
 	public World(Handler handler, String path) {
 		this.handler = handler;
 		entityManager = new EntityManager(handler,new Player(handler, 100,100));
+		itemManager = new ItemManager(handler);
+		
 		entityManager.addEntity(new Tree(handler,200,250));
 		entityManager.addEntity(new Tree(handler,150,350));
 		entityManager.addEntity(new Rock(handler,200,450));
@@ -33,6 +37,7 @@ public class World {
 	}
 	
 	public void tick() {
+		itemManager.tick();
 		entityManager.tick();
 	}
 	
@@ -48,7 +53,7 @@ public class World {
 						(int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
 			}
 		}
-	
+	itemManager.render(g);
 	entityManager.render(g);
 	}
 	
@@ -88,6 +93,22 @@ public class World {
 
 	public EntityManager getEntityManager() {
 		return entityManager;
+	}
+
+	public Handler getHandler() {
+		return handler;
+	}
+
+	public void setHandler(Handler handler) {
+		this.handler = handler;
+	}
+
+	public ItemManager getItemManager() {
+		return itemManager;
+	}
+
+	public void setItemManager(ItemManager itemManager) {
+		this.itemManager = itemManager;
 	}
 	
 }
