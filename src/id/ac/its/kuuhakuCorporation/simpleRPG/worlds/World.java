@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.EntityManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Player;
+import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Zombie;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Rock;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Tree;
 import id.ac.its.kuuhakuCorporation.simpleRPG.items.ItemManager;
@@ -29,6 +30,11 @@ public class World {
 		entityManager.addEntity(new Tree(handler,200,250));
 		entityManager.addEntity(new Tree(handler,150,350));
 		entityManager.addEntity(new Rock(handler,200,450));
+		
+		entityManager.addEntity(new Zombie(handler,250,250));
+		entityManager.addEntity(new Zombie(handler,400,100));
+		entityManager.addEntity(new Zombie(handler,250,100));
+		entityManager.addEntity(new Zombie(handler,400,400));
 		
 		loadWorld(path);
 		

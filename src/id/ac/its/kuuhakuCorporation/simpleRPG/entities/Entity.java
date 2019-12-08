@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
+import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Zombie;
 
 public abstract class Entity {
 	
@@ -45,9 +46,12 @@ public abstract class Entity {
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
 			if(e.equals(this)) continue;
 			
-			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))) 
+			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && e instanceof Zombie && !(this instanceof Zombie)) {
+				handler.getGame().setRunning(false);
+			}
+			else if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))) 
 				return true;
-		}	
+		}
 		return false;
 		
 	}

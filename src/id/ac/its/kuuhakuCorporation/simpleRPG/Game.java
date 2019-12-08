@@ -17,7 +17,7 @@ public class Game implements Runnable{
 	public String title;
 	private int width,height;
 	
-	private boolean running = false;	
+	private boolean running = false;
 	private Thread thread;
 	
 	private BufferStrategy bs;
@@ -89,37 +89,37 @@ public class Game implements Runnable{
 	}
 	
 	public void run() {
-		 init();
-		 
-		 int fps = 60;
-		 double timePerTick = 1000000000 / fps;
-		 double delta = 0;
-		 long now;
-		 long lastTime = System.nanoTime();
-		 long timer = 0;
-		 int ticks = 0;
-		 
-		 while(running) {
-			 now = System.nanoTime();
-			 delta += (now - lastTime) / timePerTick;
-			 timer += now - lastTime;
-			 lastTime = now;
-			 
-			 if(delta >= 1) {
-				 tick();
-				 render();
-				 delta--;
-				 ticks++;
-			 }
-			 
-			 if(timer >= 1000000000) {
-				 System.out.println("Ticks and Frames : " + fps);
-				 timer = 0;
-				 ticks = 0;
-			 }
-		 }
-		 
-		 stop();
+		init();
+		
+		int fps = 60;
+		double timePerTick = 1000000000 / fps;
+		double delta = 0;
+		long now;
+		long lastTime = System.nanoTime();
+		long timer = 0;
+		int ticks = 0;
+		
+		while(running) {
+			now = System.nanoTime();
+			delta += (now - lastTime) / timePerTick;
+			timer += now - lastTime;
+			lastTime = now;
+			
+			if(delta >= 1) {
+				tick();
+				render();
+				delta--;
+				ticks++;
+			}
+			
+			if(timer >= 1000000000) {
+				System.out.println("Ticks and Frames : " + fps);
+				timer = 0;
+				ticks = 0;
+			}
+		}
+		
+		stop();
 	}
 	
 	public KeyManager getKeyManager() {
@@ -140,6 +140,10 @@ public class Game implements Runnable{
 	
 	public int getHeight() {
 		return height;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
 	}
 	
 	public synchronized void start() {

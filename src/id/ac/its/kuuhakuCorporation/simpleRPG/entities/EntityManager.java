@@ -6,13 +6,17 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
+import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Creature;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Player;
+import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Zombie;
 
 public class EntityManager {
 
 	private Handler handler;
 	private Player player;
 	private ArrayList<Entity> entities;
+	private ArrayList<Zombie> zombies;
+
 	private Comparator<Entity> renderSorter = new Comparator<Entity>() {
 
 		@Override
@@ -39,17 +43,25 @@ public class EntityManager {
 			if(!e.isActive())
 				it.remove();
 		}
+		
 		entities.sort(renderSorter);
 	}
 	public void render(Graphics g) {
 		for (Entity e : entities) {
 			e.render(g);
 		}
+		
 		player.postRender(g);
 	}
 	
 	public void addEntity(Entity e) {
 		entities.add(e);
+	}
+	
+	public void addCreature(Creature e, boolean isZombie) {
+		if(isZombie) {
+			zombies.add((Zombie) e);
+		}
 	}
 
 	private Handler getHandler() {
@@ -75,7 +87,5 @@ public class EntityManager {
 	private void setEntities(ArrayList<Entity> entities) {
 		this.entities = entities;
 	}
-	
-	
 	
 }
