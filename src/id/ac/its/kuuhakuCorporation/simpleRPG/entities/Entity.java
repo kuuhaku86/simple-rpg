@@ -4,7 +4,10 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
+import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Arrow;
+import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Player;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Zombie;
+import id.ac.its.kuuhakuCorporation.simpleRPG.states.State;
 
 public abstract class Entity {
 	
@@ -43,17 +46,29 @@ public abstract class Entity {
 	}
 	
 	public boolean checkEntityCollisions(float xOffset, float yOffset) {
+		boolean zombieExist = false;
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
 			if(e.equals(this)) continue;
 			
-			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && e instanceof Zombie && !(this instanceof Zombie)) {
+			if((e instanceof Zombie && e.isActive()) || (this instanceof Zombie && this.isActive())) zombieExist = true;
+			
+			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && e instanceof Zombie && this instanceof Player && e.isActive()) {
+				State.setState(handler.getGame().loseState);
 				handler.getGame().setRunning(false);
+			} else if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && this instanceof Arrow && this.active && e.active) {
+				if(!(e instanceof Player)) {
+					e.hurt(2);
+				}
+				this.active = false;
 			}
-			else if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))) 
+			else if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && e.isActive() && this.isActive()) 
 				return true;
 		}
+		if(!zombieExist) {
+			State.setState(handler.getGame().winState);
+			handler.getGame().setRunning(false);
+		}
 		return false;
-		
 	}
 	
 	public Rectangle getCollisionBounds(float xOffset, float yOffset) {

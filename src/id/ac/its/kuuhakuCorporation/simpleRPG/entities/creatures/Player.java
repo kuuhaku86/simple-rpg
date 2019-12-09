@@ -3,19 +3,20 @@ package id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-
-import javax.swing.text.html.parser.Entity;
+import java.util.ArrayList;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Animation;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.inventory.Inventory;
+import id.ac.its.kuuhakuCorporation.simpleRPG.states.State;
 
 public class Player extends Creature {
 
 	private Animation animDown,animUp,animLeft,animRight;
 	private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
 	private Inventory inventory;
+	private ArrayList<Arrow> arrows;
 	
 	
 	public Player(Handler handler, float x, float y) {
@@ -32,6 +33,7 @@ public class Player extends Creature {
 		animRight = new Animation(500, Assets.player_right);
 		
 		inventory = new Inventory(handler);
+		arrows = new ArrayList<Arrow>();
 	}
 
 	@Override
@@ -43,6 +45,9 @@ public class Player extends Creature {
 		animRight.tick();
 		getInput();
 		move();
+		for (Arrow arrow : arrows) {
+			arrow.tick();
+		}
 		handler.getGameCamera().certerOnEntity(this);
 		checkAttacks();
 		inventory.tick();
@@ -64,38 +69,27 @@ public class Player extends Creature {
 		att.height = attSize;
 		
 		if(handler.getKeyManager().aUp) {
-			att.x = col.x + col.width/2 - attSize/2;
-			att.y = col.y - attSize;
+			arrows.add(new Arrow(handler, this.x,this.y, Assets.arrow_up));
 		}
 		else if(handler.getKeyManager().aDown) {
-			att.x = col.x + col.width/2 - attSize/2;
-			att.y = col.y + col.height;
+			arrows.add(new Arrow(handler, this.x, this.y, Assets.arrow_down));
 		}
 		else if(handler.getKeyManager().aLeft) {
-			att.y = col.y + col.height/2 - attSize/2;
-			att.x = col.x - attSize;
+			arrows.add(new Arrow(handler, this.x, this.y, Assets.arrow_left));
 		}
 		else if(handler.getKeyManager().aRight) {
-			att.y = col.y + col.height/2 - attSize/2;
-			att.x = col.x + col.width;
+			arrows.add(new Arrow(handler, this.x, this.y, Assets.arrow_right));
 		}
 		else
 			return;
 		
 		attackTimer = 0;
-		
-		for(id.ac.its.kuuhakuCorporation.simpleRPG.entities.Entity e: handler.getWorld().getEntityManager().getEntities()) {
-			if(e.equals(this)) continue;
-			else if(e.getCollisionBounds(0,0).intersects(att)) {
-				e.hurt(1);
-				return;
-			}
-		}
 	}
 	
 	@Override
 	public void die() {
 		System.out.println("You Lose");
+		State.setState(handler.getGame().loseState);
 		handler.getGame().setRunning(false);
 	}
 	
@@ -115,6 +109,10 @@ public class Player extends Creature {
 
 	@Override
 	public void render(Graphics g) {
+		for (Arrow arrow : arrows) {
+			arrow.render(g);
+		}
+		
 		g.drawImage(getCurrentAnimationFrame(),(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 	}
 	

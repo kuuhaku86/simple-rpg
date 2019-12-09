@@ -15,7 +15,6 @@ public class EntityManager {
 	private Handler handler;
 	private Player player;
 	private ArrayList<Entity> entities;
-	private ArrayList<Zombie> zombies;
 
 	private Comparator<Entity> renderSorter = new Comparator<Entity>() {
 
@@ -56,12 +55,6 @@ public class EntityManager {
 	
 	public void addEntity(Entity e) {
 		entities.add(e);
-	}
-	
-	public void addCreature(Creature e, boolean isZombie) {
-		if(isZombie) {
-			zombies.add((Zombie) e);
-		}
 	}
 
 	private Handler getHandler() {

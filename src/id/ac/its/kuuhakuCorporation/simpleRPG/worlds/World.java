@@ -61,6 +61,7 @@ public class World {
 		}
 	itemManager.render(g);
 	entityManager.render(g);
+	
 	}
 	
 	public Tile getTile(int x, int y) {

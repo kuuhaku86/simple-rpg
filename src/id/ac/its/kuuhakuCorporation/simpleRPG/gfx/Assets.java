@@ -9,8 +9,7 @@ public class Assets {
 	
 	public static Font font28;
 	
-	public static BufferedImage  dirt, grass, stone, tree,rock;
-	public static BufferedImage  wood;
+	public static BufferedImage  dirt, grass, stone, tree,rock,wood;
 	public static BufferedImage[] player_down,
 									player_up,
 									player_left,
@@ -21,6 +20,7 @@ public class Assets {
 									zombie_right;
 	public static BufferedImage[] btn_start;
 	public static BufferedImage inventoryScreen;
+	public static BufferedImage arrow_up,arrow_down,arrow_left,arrow_right;
 	
 	public static void init() {
 		font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
@@ -66,7 +66,11 @@ public class Assets {
 		stone = sheet.crop(width * 3, 0, width, height);
 		tree = sheet.crop(0, 0, width, height*2);
 		rock = sheet.crop(0, height*2, width, height);
-		
 		wood = sheet.crop(width, height, width, height);
+		
+		arrow_up = sheet.crop(width, height*3, width, height);
+		arrow_down = sheet.crop(0, height*3, width, height);
+		arrow_left = sheet.crop(3*width, height*3, width, height);
+		arrow_right = sheet.crop(2*width, height*3, width, height);
 	}
 }
