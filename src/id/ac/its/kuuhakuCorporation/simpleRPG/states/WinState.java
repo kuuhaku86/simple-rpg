@@ -1,8 +1,6 @@
 package id.ac.its.kuuhakuCorporation.simpleRPG.states;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;

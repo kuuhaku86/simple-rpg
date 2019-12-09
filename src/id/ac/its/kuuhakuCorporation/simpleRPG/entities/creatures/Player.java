@@ -1,7 +1,6 @@
 package id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -61,12 +60,6 @@ public class Player extends Creature {
 		
 		if(inventory.isActive())
 			return;
-		
-		Rectangle col = getCollisionBounds(0, 0);
-		Rectangle att = new Rectangle();
-		int attSize = 20;
-		att.width = attSize;
-		att.height = attSize;
 		
 		if(handler.getKeyManager().aUp) {
 			arrows.add(new Arrow(handler, this.x,this.y, Assets.arrow_up));

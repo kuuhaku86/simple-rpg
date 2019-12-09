@@ -103,7 +103,6 @@ public class Game implements Runnable{
 		long now;
 		long lastTime = System.nanoTime();
 		long timer = 0;
-		int ticks = 0;
 		
 		while(running) {
 			now = System.nanoTime();
@@ -115,13 +114,11 @@ public class Game implements Runnable{
 				tick();
 				render();
 				delta--;
-				ticks++;
 			}
 			
 			if(timer >= 1000000000) {
 				System.out.println("Ticks and Frames : " + fps);
 				timer = 0;
-				ticks = 0;
 			}
 		}
 		

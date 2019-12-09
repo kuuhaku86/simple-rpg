@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
-import id.ac.its.kuuhakuCorporation.simpleRPG.entities.Entity;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.tiles.Tile;
 
