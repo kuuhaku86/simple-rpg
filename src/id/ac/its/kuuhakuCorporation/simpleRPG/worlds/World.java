@@ -18,6 +18,7 @@ public class World {
 	private int width, height;
 	private int spawnX, spawnY;
 	private int[][] tiles;
+	private int[][] entities;
 	
 	private EntityManager entityManager;
 	private ItemManager itemManager;
@@ -27,19 +28,17 @@ public class World {
 		entityManager = new EntityManager(handler,new Player(handler, 100,100));
 		itemManager = new ItemManager(handler);
 		
-		entityManager.addEntity(new Tree(handler,200,250));
-		entityManager.addEntity(new Tree(handler,150,350));
-		entityManager.addEntity(new Rock(handler,200,450));
-		
-		entityManager.addEntity(new Zombie(handler,250,250));
-		entityManager.addEntity(new Zombie(handler,400,100));
-		entityManager.addEntity(new Zombie(handler,250,100));
-		entityManager.addEntity(new Zombie(handler,400,400));
 		
 		loadWorld(path);
 		
 		entityManager.getPlayer().setX(spawnX);
 		entityManager.getPlayer().setY(spawnY);
+		
+		deployTree(20);
+		
+		deployRocks(20);
+		
+		deployZombie(10);
 	}
 	
 	public void tick() {
@@ -59,9 +58,9 @@ public class World {
 						(int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
 			}
 		}
-	itemManager.render(g);
-	entityManager.render(g);
-	
+		
+		itemManager.render(g);
+		entityManager.render(g);
 	}
 	
 	public Tile getTile(int x, int y) {
@@ -73,6 +72,45 @@ public class World {
 			return Tile.dirtTile;
 		return t;
 	}
+	
+	private void deployZombie(int numbers) {
+		int i = 0;
+		while(i < numbers) {
+			int height = (int)(Math.random()*20);
+			int width = (int)(Math.random()*20);
+			if(!collisionWithTile(width,height)) {
+				entityManager.addEntity(new Zombie(handler,width*64,height*64));
+				entities[width][height] = 1;
+				i++;
+			}
+		}
+	}
+	
+	private void deployTree(int numbers) {
+		int i = 0;
+		while(i < numbers) {
+			int height = (int)(Math.random()*20);
+			int width = (int)(Math.random()*20);
+			if(!collisionWithTile(width,height)) {
+				entityManager.addEntity(new Tree(handler,width*64,height*64));
+				entities[width][height] = 1;
+				i++;
+			}
+		}
+	}
+	
+	private void deployRocks(int numbers) {
+		int i = 0;
+		while(i < numbers) {
+			int height = (int)(Math.random()*20);
+			int width = (int)(Math.random()*20);
+			if(!collisionWithTile(width,height)) {
+				entityManager.addEntity(new Rock(handler,width*64,height*64));
+				entities[width][height] = 1;
+				i++;
+			}
+		}
+	}
 
 	private void loadWorld(String path) {
 		String file = Utils.loadFileAsString(path);
@@ -83,9 +121,12 @@ public class World {
 		spawnY = Utils.parseInt(tokens[3]);
 		
 		tiles = new int[width][height];
+		entities = new int[width][height];
+		
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++) {
 				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
+				entities[x][y] = 0;
 			}
 		}
 	}
@@ -118,4 +159,7 @@ public class World {
 		this.itemManager = itemManager;
 	}
 	
+	protected boolean collisionWithTile(int x, int y) {
+		return tiles[x][y] == 2 || entities[x][y] == 1;
+	}
 }

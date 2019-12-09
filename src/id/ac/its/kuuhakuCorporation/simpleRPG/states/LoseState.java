@@ -12,7 +12,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.ui.UIManager;
 
 
 public class LoseState extends State {
-
+	
 	public LoseState(Handler handler) {
 		super(handler);
 	}

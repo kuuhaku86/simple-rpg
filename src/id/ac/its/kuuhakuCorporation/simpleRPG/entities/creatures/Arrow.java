@@ -13,18 +13,18 @@ public class Arrow extends Creature {
 	protected float xMove, yMove;
 	
 	public Arrow(Handler handler, float x, float y, BufferedImage image) {
-		super(handler, x, y, Tile.TILEWIDTH, Tile.TILEWIDTH);
+		super(handler, x, y, 50, 50);
 		this.image = image;
 		if(image.equals(Assets.arrow_up)) {
-			yMove-=5;
+			yMove -= 5;
 			this.y -= 64;
 		}
 		else if(image.equals(Assets.arrow_down)) {
-			yMove+=5;
+			yMove += 5;
 			this.y += 64;
 		}
 		else if(image.equals(Assets.arrow_left)) {
-			xMove-=5;
+			xMove -= 5;
 			this.x -= 64;
 		}
 		else {

@@ -47,12 +47,13 @@ public abstract class Entity {
 	
 	public boolean checkEntityCollisions(float xOffset, float yOffset) {
 		boolean zombieExist = false;
+		
 		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
 			if(e.equals(this)) continue;
 			
 			if((e instanceof Zombie && e.isActive()) || (this instanceof Zombie && this.isActive())) zombieExist = true;
 			
-			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && e instanceof Zombie && this instanceof Player && e.isActive()) {
+			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && ((e instanceof Zombie && this instanceof Player && e.isActive()) || (this instanceof Zombie && e instanceof Player && this.isActive())) ) {
 				State.setState(handler.getGame().loseState);
 				handler.getGame().setRunning(false);
 			} else if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && this instanceof Arrow && this.active && e.active) {
@@ -123,7 +124,4 @@ public abstract class Entity {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-
-
-	
 }
