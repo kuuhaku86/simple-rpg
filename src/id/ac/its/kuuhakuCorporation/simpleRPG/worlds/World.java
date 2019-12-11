@@ -71,7 +71,6 @@ public class World {
 		itemManager.render(g);
 		entityManager.render(g);
 
-		showZombie(g);
 	}
 
 	public Tile getTile(int x, int y) {
@@ -177,7 +176,4 @@ public class World {
 		return tiles[x][y] == 2 || entities[x][y] == 1;
 	}
 
-	public void showZombie(Graphics g) {
-		Text.drawString(g, "Zombie : " + Integer.toString(nZombie), 450, 25, false, Color.white, Assets.font28);
-	}
 }
