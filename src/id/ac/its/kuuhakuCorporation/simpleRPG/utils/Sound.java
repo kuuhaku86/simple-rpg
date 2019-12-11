@@ -13,6 +13,8 @@ public class Sound {
 	public static final AudioClip leaf = Applet.newAudioClip(Sound.class.getResource("/sounds/leaf.wav"));
 	public static final AudioClip menu = Applet.newAudioClip(Sound.class.getResource("/sounds/menu.wav"));
 	public static final AudioClip up = Applet.newAudioClip(Sound.class.getResource("/sounds/up.wav"));
+	public static final AudioClip inven = Applet.newAudioClip(Sound.class.getResource("/sounds/inven.wav"));
+	public static final AudioClip scroll = Applet.newAudioClip(Sound.class.getResource("/sounds/scroll.wav"));
 
 
 }

@@ -30,15 +30,24 @@ public class Inventory {
 	}
 	
 	public void tick() {
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E))
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
 			active = !active;
+			Sound.inven.play();
+		}
+			
 		if(!active)
 			return;
 		
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP))
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)) {
+			Sound.scroll.play();
 			selectedItem--;
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN))
+		}
+			
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)) {
+			Sound.scroll.play();
 			selectedItem++;
+		}
+			
 		
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE) && inventoryItems.size() > 0) {
 			Player player = handler.getWorld().getEntityManager().getPlayer();
@@ -81,7 +90,6 @@ public class Inventory {
 		for(int i=-5; i<6; i++) {
 			if(selectedItem+i<0 || selectedItem +i >= len)
 				continue;
-			
 			if(i==0) 
 				Text.drawString(g,"> "+ inventoryItems.get(selectedItem + i).getName() +" <",
 						invListCenterX, invListCenterY + i*invListSpacing, true,
