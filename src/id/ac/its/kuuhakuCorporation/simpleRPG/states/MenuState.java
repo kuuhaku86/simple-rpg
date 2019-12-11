@@ -38,17 +38,17 @@ public class MenuState extends State{
 	public void render(Graphics g) {
 		if(handler.con == 0) {
 			g.drawImage(Assets.title,120,30, 400,150,null);
-			Text.drawString(g, "Start?", 320, 200, true, Color.black, Assets.font28);
+			Text.drawString(g, "Start?", 320, 220, true, Color.black, Assets.font28);
 			uiManager.render(g);
 		}
 		else if(handler.con == 1) {
-			Text.drawString(g, "YOU WIN!", 320, 70, true, Color.black, Assets.font28);
-			Text.drawString(g, "PLAY AGAIN?", 320, 200, true, Color.black, Assets.font28);
+			Text.drawString(g, "YOU WIN!", 320, 100, true, Color.black, Assets.font28);
+			Text.drawString(g, "PLAY AGAIN?", 320, 220, true, Color.black, Assets.font28);
 			uiManager.render(g);
 		}
 		else{
-			Text.drawString(g, "YOU LOSE!", 320, 70, true, Color.black, Assets.font28);
-			Text.drawString(g, "TRY AGAIN?", 320, 200, true, Color.black, Assets.font28);
+			Text.drawString(g, "YOU LOSE!", 320, 100, true, Color.black, Assets.font28);
+			Text.drawString(g, "TRY AGAIN?", 320, 220, true, Color.black, Assets.font28);
 			uiManager.render(g);
 		}
 	}
