@@ -22,12 +22,15 @@ public class Assets {
 	public static BufferedImage inventoryScreen;
 	public static BufferedImage arrow_up,arrow_down,arrow_left,arrow_right;
 	public static BufferedImage heart;
+	public static BufferedImage title;
+	
 	
 	public static void init() {
 		font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
 		
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
 		
+		title = ImageLoader.loadImage("/textures/title.png");
 		btn_start= new BufferedImage[2];
 		inventoryScreen = ImageLoader.loadImage("/textures/inventoryScreen.png");
 		
