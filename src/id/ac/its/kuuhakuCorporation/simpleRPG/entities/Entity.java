@@ -103,6 +103,24 @@ public abstract class Entity {
 	public void setY(float y) {
 		this.y = y;
 	}
+	
+	public float getPlayerX(){
+		for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
+			if(e instanceof Player) {
+				return e.getX();
+			}
+		}
+		return 0;
+	}
+	
+	public float getPlayerY(){
+		for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
+			if(e instanceof Player) {
+				return e.getY();
+			}
+		}
+		return 0;
+	}
 
 	public int getWidth() {
 		return width;

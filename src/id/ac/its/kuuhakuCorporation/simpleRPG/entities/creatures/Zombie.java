@@ -68,6 +68,11 @@ public class Zombie extends Creature {
 	}
 	
 	public void randomMove() {
+		float playerX = getPlayerX();
+		float playerY = getPlayerY();
+		
+		float range = (float) Math.sqrt(Math.pow((playerX - this.x),2) + Math.pow((playerY - this.y),2));
+		
 		if(countStep > 25) {
 			xMove = 0;
 			yMove = 0;
@@ -75,21 +80,31 @@ public class Zombie extends Creature {
 		}
 		
 		if(!(xMove > 1 || xMove < -1 || yMove > 1 || yMove < -1)) {
-			int randomDirection = (int)(Math.random() * 4 + 1);
 			
-			switch(randomDirection) {
-				case 1 :
-					yMove -= 1;
-					break;
-				case 2 :
-					yMove += 1;
-					break;
-				case 3 :
-					xMove -= 1;
-					break;
-				case 4 :
-					xMove += 1;
-					break;
+			
+			if(range < 300) {
+				if(this.x < playerX) xMove +=1;
+				if(this.x > playerX) xMove -=1;
+				if(this.y < playerY) yMove +=1;
+				if(this.y > playerY) yMove -=1;
+			}
+			
+			else {
+				int randomDirection = (int)(Math.random() * 4 + 1);
+				switch(randomDirection) {
+					case 1 :
+						yMove -= 1;
+						break;
+					case 2 :
+						yMove += 1;
+						break;
+					case 3 :
+						xMove -= 1;
+						break;
+					case 4 :
+						xMove += 1;
+						break;
+				}
 			}
 		}
 		
