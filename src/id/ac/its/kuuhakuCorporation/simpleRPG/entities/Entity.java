@@ -64,7 +64,7 @@ public abstract class Entity {
 					this.hurt(1);
 			} else if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && this instanceof Arrow && this.active && e.active) {
 				if(!(e instanceof Player)) {
-					e.hurt(2);
+					e.hurt(1);
 				}
 				this.active = false;
 			}
