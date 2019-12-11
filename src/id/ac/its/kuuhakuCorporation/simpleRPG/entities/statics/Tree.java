@@ -25,7 +25,9 @@ public class Tree extends StaticEntity {
 	
 	@Override
 	public void die() {
-		handler.getWorld().getItemManager().addItem(Item.woodItem.createNew((int) x,(int) y));
+		drop = (int) (Math.random()*10);
+		if(drop > 7)
+			handler.getWorld().getItemManager().addItem(Item.herbItem.createNew((int) x, (int) y));
 		
 	}
 

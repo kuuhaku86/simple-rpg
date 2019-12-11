@@ -73,6 +73,7 @@ public abstract class Entity {
 		}
 		if(!zombieExist) {
 			handler.con=1;
+			handler.getWorld().setnZombie();
 			handler.getGame().gameState.reset();
 			State.setState(handler.getGame().menuState);
 		}
