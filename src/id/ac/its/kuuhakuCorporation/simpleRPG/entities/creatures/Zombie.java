@@ -68,8 +68,8 @@ public class Zombie extends Creature {
 	}
 	
 	public void randomMove() {
-		float playerX = getPlayerX();
-		float playerY = getPlayerY();
+		float playerX = handler.getWorld().getEntityManager().getPlayer().getX();
+		float playerY = handler.getWorld().getEntityManager().getPlayer().getY();
 		
 		float range = (float) Math.sqrt(Math.pow((playerX - this.x),2) + Math.pow((playerY - this.y),2));
 		
