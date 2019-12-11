@@ -11,6 +11,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.states.State;
 
 public abstract class Entity {
 
+	protected int drop;
 	public static final int DEFAULT_HEALTH = 20;
 	protected Handler handler;
 	protected float x, y;

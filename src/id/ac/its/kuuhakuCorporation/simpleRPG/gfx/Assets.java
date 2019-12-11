@@ -23,6 +23,7 @@ public class Assets {
 	public static BufferedImage arrow_up,arrow_down,arrow_left,arrow_right;
 	public static BufferedImage heart;
 	public static BufferedImage title;
+	public static BufferedImage upSpeed, upPower;
 	
 	
 	public static void init() {
@@ -71,6 +72,8 @@ public class Assets {
 		tree = sheet.crop(0, 0, width, height*2);
 		bush = sheet.crop(0, 0, width, height);
 		wood = sheet.crop(width, height, width, height);
+		upPower= sheet.crop(width * 4,4*height,width,height);
+		upSpeed= sheet.crop(width * 5,4*height,width,height);
 		
 		arrow_up = sheet.crop(width, height*3, width, height);
 		arrow_down = sheet.crop(0, height*3, width, height);

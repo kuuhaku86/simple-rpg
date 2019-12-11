@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Animation;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
+import id.ac.its.kuuhakuCorporation.simpleRPG.items.Item;
 
 public class Zombie extends Creature {
 	
@@ -88,6 +89,7 @@ public class Zombie extends Creature {
 	@Override
 	public void die() {
 		this.active = false;
+		handler.getWorld().getItemManager().addItem(Item.upPower.createNew((int) x, (int) y));
 	}
 	
 }
