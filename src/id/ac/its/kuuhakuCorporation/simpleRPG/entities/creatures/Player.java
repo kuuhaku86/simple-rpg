@@ -26,6 +26,8 @@ public class Player extends Creature {
 		bounds.width = 19;
 		bounds.height = 19;
 		
+		health = 3;
+		
 		animDown = new Animation(500, Assets.player_down);
 		animUp= new Animation(500, Assets.player_up);
 		animLeft = new Animation(500, Assets.player_left);
@@ -81,7 +83,6 @@ public class Player extends Creature {
 	
 	@Override
 	public void die() {
-		System.out.println("You Lose");
 		State.setState(handler.getGame().loseState);
 		handler.getGame().setRunning(false);
 	}
@@ -107,10 +108,18 @@ public class Player extends Creature {
 		}
 		
 		g.drawImage(getCurrentAnimationFrame(),(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+		
+		drawHeart(g);
 	}
 	
 	public void postRender(Graphics g) {
 		inventory.render(g);
+	}
+	
+	private void drawHeart(Graphics g) {
+		for(int i = 0; i < health;i++) {
+			g.drawImage(Assets.heart,10 + 32 * i,10, width/2, height/2, null);
+		}
 	}
 	
 	private BufferedImage getCurrentAnimationFrame() {

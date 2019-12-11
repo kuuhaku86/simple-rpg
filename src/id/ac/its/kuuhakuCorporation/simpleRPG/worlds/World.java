@@ -8,6 +8,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Player;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Zombie;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Rock;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Tree;
+import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.items.ItemManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.tiles.Tile;
 import id.ac.its.kuuhakuCorporation.simpleRPG.utils.Utils;

@@ -11,13 +11,14 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.states.State;
 
 public abstract class Entity {
 	
-	public static final int DEFAULT_HEALTH = 5;
+	public static final int DEFAULT_HEALTH = 20;
 	protected Handler handler;
 	protected float x, y;
 	protected int width, height;
 	protected Rectangle bounds;
 	protected int health;
 	protected boolean active = true;
+	private long lastHurtTimer, hurtCooldown = 500, hurtTimer = hurtCooldown;
 
 	public Entity(Handler handler, float x, float y, int width, int height) {
 		this.handler = handler;
@@ -27,8 +28,9 @@ public abstract class Entity {
 		this.height = height;
 		health = DEFAULT_HEALTH;
 		
-		bounds = new Rectangle(0, 0, width, height);
+		lastHurtTimer = System.currentTimeMillis();
 		
+		bounds = new Rectangle(0, 0, width, height);
 	}
 	
 	public abstract void tick();
@@ -38,6 +40,7 @@ public abstract class Entity {
 	public abstract void die();
 	
 	public void hurt(int dmg) {
+		
 		health -= dmg;
 		if(health<=0) {
 			active = false;
@@ -53,9 +56,12 @@ public abstract class Entity {
 			
 			if((e instanceof Zombie && e.isActive()) || (this instanceof Zombie && this.isActive())) zombieExist = true;
 			
-			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && ((e instanceof Zombie && this instanceof Player && e.isActive()) || (this instanceof Zombie && e instanceof Player && this.isActive())) ) {
-				State.setState(handler.getGame().loseState);
-				handler.getGame().setRunning(false);
+			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && ((e instanceof Zombie && this instanceof Player && e.isActive())) ) {
+					hurtTimer = System.currentTimeMillis() - lastHurtTimer;
+					lastHurtTimer = System.currentTimeMillis();
+					if(hurtTimer < hurtCooldown)
+						return false;
+					this.hurt(1);
 			} else if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && this instanceof Arrow && this.active && e.active) {
 				if(!(e instanceof Player)) {
 					e.hurt(2);

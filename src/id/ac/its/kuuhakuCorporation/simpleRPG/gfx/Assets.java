@@ -21,6 +21,7 @@ public class Assets {
 	public static BufferedImage[] btn_start;
 	public static BufferedImage inventoryScreen;
 	public static BufferedImage arrow_up,arrow_down,arrow_left,arrow_right;
+	public static BufferedImage heart;
 	
 	public static void init() {
 		font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
@@ -72,5 +73,7 @@ public class Assets {
 		arrow_down = sheet.crop(0, height*3, width, height);
 		arrow_left = sheet.crop(3*width, height*3, width, height);
 		arrow_right = sheet.crop(2*width, height*3, width, height);
+		
+		heart = sheet.crop(3*width, 2*height, width, height);
 	}
 }
