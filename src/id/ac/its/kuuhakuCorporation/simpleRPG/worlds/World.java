@@ -6,7 +6,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.EntityManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Player;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Zombie;
-import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Rock;
+import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Bush;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Tree;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.items.ItemManager;
@@ -37,7 +37,7 @@ public class World {
 		
 		deployTree(20);
 		
-		deployRocks(20);
+		deployBush(20);
 		
 		deployZombie(10);
 	}
@@ -82,6 +82,7 @@ public class World {
 			if(!collisionWithTile(width,height)) {
 				entityManager.addEntity(new Zombie(handler,width*64,height*64));
 				entities[width][height] = 1;
+				entities[width][height] = 1;
 				i++;
 			}
 		}
@@ -90,23 +91,24 @@ public class World {
 	private void deployTree(int numbers) {
 		int i = 0;
 		while(i < numbers) {
-			int height =  + (int)(Math.random()*17);
-			int width = 3 + (int)(Math.random()*17);
-			if(!collisionWithTile(width,height)) {
+			int height = 3 + (int)(Math.random()*16);
+			int width = 3 + (int)(Math.random()*16);
+			if(!collisionWithTile(width,height) && !collisionWithTile(width,height + 1)) {
 				entityManager.addEntity(new Tree(handler,width*64,height*64));
 				entities[width][height] = 1;
+				entities[width][height + 1] = 1;
 				i++;
 			}
 		}
 	}
 	
-	private void deployRocks(int numbers) {
+	private void deployBush(int numbers) {
 		int i = 0;
 		while(i < numbers) {
 			int height = 3 + (int)(Math.random()*17);
 			int width = 3 + (int)(Math.random()*17);
 			if(!collisionWithTile(width,height)) {
-				entityManager.addEntity(new Rock(handler,width*64,height*64));
+				entityManager.addEntity(new Bush(handler,width*64,height*64));
 				entities[width][height] = 1;
 				i++;
 			}

@@ -10,8 +10,8 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 public class Item {
 
 	public static Item[] items = new Item[256];
-	public static Item woodItem = new Item(Assets.wood, "wood",0);
-	public static Item rockItem = new Item(Assets.rock, "rock",1);
+	public static Item woodItem = new Item(Assets.wood, "herb",0);
+	public static Item bushItem = new Item(Assets.wood, "herb",0);
 	
 	public static final int ITEMWIDTH = 32, ITEMHEIGHT=32;
 	protected Handler handler;
