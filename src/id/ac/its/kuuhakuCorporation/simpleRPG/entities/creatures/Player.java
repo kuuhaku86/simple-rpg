@@ -16,28 +16,30 @@ public class Player extends Creature {
 	private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
 	private Inventory inventory;
 	private ArrayList<Arrow> arrows;
-	
-	
+
+
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
-		
+
 		bounds.x = 22;
 		bounds.y = 44;
 		bounds.width = 19;
 		bounds.height = 19;
-		
+
+		health = 3;
+
 		animDown = new Animation(500, Assets.player_down);
 		animUp= new Animation(500, Assets.player_up);
 		animLeft = new Animation(500, Assets.player_left);
 		animRight = new Animation(500, Assets.player_right);
-		
+
 		inventory = new Inventory(handler);
 		arrows = new ArrayList<Arrow>();
 	}
 
 	@Override
 	public void tick() {
-		
+
 		animDown.tick();
 		animUp.tick();
 		animLeft.tick();
@@ -51,16 +53,16 @@ public class Player extends Creature {
 		checkAttacks();
 		inventory.tick();
 	}
-	
+
 	private void checkAttacks() {
 		attackTimer += System.currentTimeMillis() - lastAttackTimer;
 		lastAttackTimer = System.currentTimeMillis();
 		if(attackTimer < attackCooldown)
 			return;
-		
+
 		if(inventory.isActive())
 			return;
-		
+
 		if(handler.getKeyManager().aUp) {
 			arrows.add(new Arrow(handler, this.x,this.y, Assets.arrow_up));
 		}
@@ -75,21 +77,21 @@ public class Player extends Creature {
 		}
 		else
 			return;
-		
+
 		attackTimer = 0;
 	}
-	
+
 	@Override
 	public void die() {
 		handler.con=2;
 		handler.getGame().gameState.reset();
 		State.setState(handler.getGame().menuState);
 	}
-	
+
 	private void getInput() {
 		xMove = 0;
 		yMove = 0;
-		
+
 		if(handler.getKeyManager().up)
 			yMove = -speed;
 		if(handler.getKeyManager().down)
@@ -105,14 +107,22 @@ public class Player extends Creature {
 		for (Arrow arrow : arrows) {
 			arrow.render(g);
 		}
-		
+
 		g.drawImage(getCurrentAnimationFrame(),(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+
+		drawHeart(g);
 	}
-	
+
 	public void postRender(Graphics g) {
 		inventory.render(g);
 	}
-	
+
+	private void drawHeart(Graphics g) {
+		for(int i = 0; i < health;i++) {
+			g.drawImage(Assets.heart,10 + 32 * i,10, width/2, height/2, null);
+		}
+	}
+
 	private BufferedImage getCurrentAnimationFrame() {
 		if(xMove <0)
 			return animLeft.getCurrentFrame();
@@ -131,5 +141,5 @@ public class Player extends Creature {
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
-	
+
 }
