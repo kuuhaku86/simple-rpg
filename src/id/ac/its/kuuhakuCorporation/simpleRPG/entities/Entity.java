@@ -77,6 +77,7 @@ public abstract class Entity {
 				return true;
 		}
 		if(!zombieExist) {
+			Sound.main.stop();
 			Sound.zDie.stop();
 			Sound.win.play();
 			handler.con=1;

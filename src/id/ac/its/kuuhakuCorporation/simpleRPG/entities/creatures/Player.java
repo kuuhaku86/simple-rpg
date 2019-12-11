@@ -22,8 +22,8 @@ public class Player extends Creature {
 	private boolean upPower,
 					upSpeed;
 	
-	private long upSpeedTimer, upSpeedlimit = 3000, lastSpeedTimer;
-	private long upPowerTimer, upPowerlimit = 3000, lastPowerTimer;
+	private long upSpeedTimer, upSpeedlimit = 10000, lastSpeedTimer;
+	private long upPowerTimer, upPowerlimit = 10000, lastPowerTimer;
 	
 	public static void setAttackCooldown() {
 		Player.attackCooldown -= 200;
@@ -115,6 +115,8 @@ public class Player extends Creature {
 	public void die() {
 		handler.con=2;
 		handler.getGame().gameState.reset();
+		Sound.pHit.stop();
+		Sound.main.stop();
 		Sound.lose.play();
 		State.setState(handler.getGame().menuState);
 	}

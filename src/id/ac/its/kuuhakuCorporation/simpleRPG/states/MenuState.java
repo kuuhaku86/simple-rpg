@@ -24,8 +24,10 @@ public class MenuState extends State{
 				Assets.btn_start, new ClickListener() {
 					@Override
 					public void onClick() {
+						Sound.menu.stop();
 						Sound.lose.stop();
 						Sound.win.stop();
+						Sound.main.loop();
 						State.setState(handler.getGame().gameState);
 					}
 		}));

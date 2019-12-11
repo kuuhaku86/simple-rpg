@@ -10,6 +10,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Player;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Text;
 import id.ac.its.kuuhakuCorporation.simpleRPG.items.Item;
+import id.ac.its.kuuhakuCorporation.simpleRPG.utils.Sound;
 
 public class Inventory {
 
@@ -46,12 +47,15 @@ public class Inventory {
 					speededUp = player.getUpSpeed();
 			
 			if(health < 5 && inventoryItems.get(selectedItem).getTexture().equals(Assets.herb) ) {
+				Sound.herb.play();
 				player.setHealth(health + 1);
 				reduceItem(selectedItem);
 			}else if(inventoryItems.get(selectedItem).getTexture().equals(Assets.upSpeed) && !speededUp) {
+				Sound.up.play();
 				player.gettingUpSpeed();
 				reduceItem(selectedItem);
 			}else if(inventoryItems.get(selectedItem).getTexture().equals(Assets.upPower) && !poweredUp) {
+				Sound.up.play();
 				player.gettingUpPower();
 				reduceItem(selectedItem);
 			}

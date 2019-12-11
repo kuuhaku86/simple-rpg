@@ -116,10 +116,10 @@ public class Zombie extends Creature {
 	public void die() {
 		Sound.zDie.play();
 		this.active = false;
-		drop = (int) (Math.random()*10);
-		if(drop > 8)
+		drop = (int) (Math.random()*20);
+		if(drop > 17)
 			handler.getWorld().getItemManager().addItem(Item.upSpeed.createNew((int) x, (int) y));
-		else if(drop > 6)
+		else if(drop > 14)
 			handler.getWorld().getItemManager().addItem(Item.upPower.createNew((int) x, (int) y));
 	}
 
