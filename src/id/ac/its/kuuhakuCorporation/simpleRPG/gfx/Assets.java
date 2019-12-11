@@ -26,6 +26,7 @@ public class Assets {
 	public static BufferedImage health_bar_full,
 									health_bar_23,
 									health_bar_13;
+	public static BufferedImage upSpeed, upPower;
 	
 	public static void init() {
 		font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
@@ -73,6 +74,8 @@ public class Assets {
 		tree = sheet.crop(0, 0, width, height*2);
 		bush = sheet.crop(0, 0, width, height);
 		wood = sheet.crop(width, height, width, height);
+		upPower= sheet.crop(width * 4,4*height,width,height);
+		upSpeed= sheet.crop(width * 5,4*height,width,height);
 		
 		arrow_up = sheet.crop(width, height*3, width, height);
 		arrow_down = sheet.crop(0, height*3, width, height);
