@@ -23,8 +23,8 @@ public class Player extends Creature {
  private boolean upPower,
      upSpeed;
  
- private long upSpeedTimer, upSpeedlimit = 3000, lastSpeedTimer;
- private long upPowerTimer, upPowerlimit = 3000, lastPowerTimer;
+ private long upSpeedTimer, upSpeedlimit = 10000, lastSpeedTimer;
+ private long upPowerTimer, upPowerlimit = 10000, lastPowerTimer;
  private long hurtTimer,lastHurtTimer, hurtCooldown = 1000; 
 
  public Player(Handler handler, float x, float y) {
