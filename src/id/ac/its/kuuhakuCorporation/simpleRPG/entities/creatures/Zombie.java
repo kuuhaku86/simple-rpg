@@ -114,6 +114,7 @@ public class Zombie extends Creature {
 
 	@Override
 	public void die() {
+//		handler.getWorld().setnZombie(handler.gt);
 		Sound.zDie.play();
 		this.active = false;
 		drop = (int) (Math.random()*10);

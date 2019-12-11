@@ -6,6 +6,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.items.Item;
 import id.ac.its.kuuhakuCorporation.simpleRPG.tiles.Tile;
+import id.ac.its.kuuhakuCorporation.simpleRPG.utils.Sound;
 
 public class Bush extends StaticEntity {
 
@@ -25,6 +26,7 @@ public class Bush extends StaticEntity {
 
 	@Override
 	public void die() {
+		Sound.leaf.play();
 		drop = (int) (Math.random()*10);
 		if(drop > 7)
 			handler.getWorld().getItemManager().addItem(Item.herbItem.createNew((int) x, (int) y));

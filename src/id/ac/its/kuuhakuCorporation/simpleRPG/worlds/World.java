@@ -1,5 +1,6 @@
 package id.ac.its.kuuhakuCorporation.simpleRPG.worlds;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
@@ -9,6 +10,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Zombie;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Bush;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Tree;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
+import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Text;
 import id.ac.its.kuuhakuCorporation.simpleRPG.items.ItemManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.tiles.Tile;
 import id.ac.its.kuuhakuCorporation.simpleRPG.utils.Utils;
@@ -20,7 +22,7 @@ public class World {
 	private int spawnX, spawnY;
 	private int[][] tiles;
 	private int[][] entities;
-	public static int nZombie = 1;
+	public static int nZombie = 10;
 
 	private EntityManager entityManager;
 	private ItemManager itemManager;
@@ -43,7 +45,7 @@ public class World {
 		deployZombie(nZombie);
 	}
 
-		public void setnZombie() {
+	public void setnZombie() {
 		this.nZombie += 3;
 	}
 
@@ -68,6 +70,8 @@ public class World {
 
 		itemManager.render(g);
 		entityManager.render(g);
+		
+		showZombie(g);
 	}
 
 	public Tile getTile(int x, int y) {
@@ -171,5 +175,9 @@ public class World {
 
 	protected boolean collisionWithTile(int x, int y) {
 		return tiles[x][y] == 2 || entities[x][y] == 1;
+	}
+	
+	public void showZombie(Graphics g) {
+		Text.drawString(g, "Zombie : " + Integer.toString(nZombie), 450, 25, false, Color.white, Assets.font28);
 	}
 }

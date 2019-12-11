@@ -59,6 +59,7 @@ public abstract class Entity {
 			if((e instanceof Zombie && e.isActive()) || (this instanceof Zombie && this.isActive())) zombieExist = true;
 			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && this instanceof Arrow && this.active && e.active) {
 				if(!(e instanceof Player)) {
+					Sound.pHit.play();
 					e.hurt(this.damage);
 				}
 				this.active = false;
@@ -69,6 +70,7 @@ public abstract class Entity {
 		
 		if(!zombieExist) {
 			Sound.zDie.stop();
+			Sound.main.stop();
 			Sound.win.play();
 			handler.con=1;
 			handler.getWorld().setnZombie();

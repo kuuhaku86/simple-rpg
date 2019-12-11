@@ -6,6 +6,7 @@ import java.awt.image.BufferStrategy;
 import id.ac.its.kuuhakuCorporation.simpleRPG.display.Display;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.GameCamera;
+import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Text;
 import id.ac.its.kuuhakuCorporation.simpleRPG.input.KeyManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.input.MouseManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.states.GameState;
