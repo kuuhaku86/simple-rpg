@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
+import id.ac.its.kuuhakuCorporation.simpleRPG.entities.Entity;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Animation;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.inventory.Inventory;
@@ -23,10 +24,7 @@ public class Player extends Creature {
 	
 	private long upSpeedTimer, upSpeedlimit = 3000, lastSpeedTimer;
 	private long upPowerTimer, upPowerlimit = 3000, lastPowerTimer;
-	
-	public static void setAttackCooldown() {
-		Player.attackCooldown -= 200;
-	}
+	private long hurtTimer,lastHurtTimer, hurtCooldown = 1000; 
 
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -48,6 +46,7 @@ public class Player extends Creature {
 
 		inventory = new Inventory(handler);
 		arrows = new ArrayList<Arrow>();
+		lastHurtTimer = System.currentTimeMillis();
 	}
 
 	@Override
@@ -59,9 +58,11 @@ public class Player extends Creature {
 		animRight.tick();
 		getInput();
 		move();
+		
 		for (Arrow arrow : arrows) {
 			arrow.tick();
 		}
+		
 		handler.getGameCamera().certerOnEntity(this);
 		checkAttacks();
 		inventory.tick();
@@ -71,6 +72,7 @@ public class Player extends Creature {
 			if((upSpeedTimer - lastSpeedTimer) > upSpeedlimit) {
 				upSpeed = false;
 				attackCooldown = 500;
+				lastSpeedTimer = System.currentTimeMillis();
 			}
 			upSpeedTimer = System.currentTimeMillis();
 		}
@@ -78,9 +80,12 @@ public class Player extends Creature {
 		if(upPower) {
 			if((upPowerTimer - lastPowerTimer) > upPowerlimit) {
 				upPower = false;
+				lastPowerTimer = System.currentTimeMillis();
 			}
 			upPowerTimer = System.currentTimeMillis();
 		}
+		
+		checkAttacked();
 	}
 
 	private void checkAttacks() {
@@ -108,6 +113,14 @@ public class Player extends Creature {
 			return;
 
 		attackTimer = 0;
+	}
+	
+	public void checkAttacked() {
+		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
+			if(e instanceof Zombie && e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(bounds.x, bounds.y))) {
+				this.hurt(e.getDamage());
+			}
+		}
 	}
 
 	@Override
@@ -166,6 +179,19 @@ public class Player extends Creature {
 			return animUp.getCurrentFrame();
 		else
 			return animDown.getCurrentFrame();
+	}
+	
+	@Override
+	public void hurt(int dmg) {
+		hurtTimer = System.currentTimeMillis() - lastHurtTimer;
+		if(hurtTimer < hurtCooldown)
+			return;
+		lastHurtTimer = System.currentTimeMillis();
+		health -= dmg;
+		if(health<=0) {
+			active = false;
+			die();
+		}
 	}
 
 	public Inventory getInventory() {

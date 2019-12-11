@@ -1,4 +1,4 @@
-package id.ac.its.kuuhakuCorporation.simpleRPG.entities;
+ package id.ac.its.kuuhakuCorporation.simpleRPG.entities;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -12,14 +12,14 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.states.State;
 public abstract class Entity {
 
 	protected int drop;
-	public static final int DEFAULT_HEALTH = 20;
+	public static final int DEFAULT_HEALTH = 20,
+							DEFAULT_DAMAGE = 1;
 	protected Handler handler;
 	protected float x, y;
 	protected int width, height;
 	protected Rectangle bounds;
 	protected int health;
 	protected boolean active = true;
-	private long lastHurtTimer, hurtCooldown = 500, hurtTimer = hurtCooldown;
 	protected int damage;
 
 	public Entity(Handler handler, float x, float y, int width, int height) {
@@ -30,10 +30,8 @@ public abstract class Entity {
 		this.height = height;
 		health = DEFAULT_HEALTH;
 
-		lastHurtTimer = System.currentTimeMillis();
-
 		bounds = new Rectangle(0, 0, width, height);
-		damage = 1;
+		damage = DEFAULT_DAMAGE;
 	}
 
 	public abstract void tick();
@@ -59,13 +57,13 @@ public abstract class Entity {
 
 			if((e instanceof Zombie && e.isActive()) || (this instanceof Zombie && this.isActive())) zombieExist = true;
 
-			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && ((e instanceof Zombie && this instanceof Player && e.isActive())) ) {
-					hurtTimer = System.currentTimeMillis() - lastHurtTimer;
-					lastHurtTimer = System.currentTimeMillis();
-					if(hurtTimer < hurtCooldown)
-						return false;
-					this.hurt(this.damage);
-			} else if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && this instanceof Arrow && this.active && e.active) {
+//			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && ((e instanceof Zombie && this instanceof Player && e.isActive()) || (this instanceof Zombie && e instanceof Player && this.isActive())) ) {
+//					if(this instanceof Player)
+//						this.hurt(this.damage);
+//					else	
+//						e.hurt(damage);
+//			} else 
+				if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && this instanceof Arrow && this.active && e.active) {
 				if(!(e instanceof Player)) {
 					e.hurt(this.damage);
 				}
@@ -74,12 +72,14 @@ public abstract class Entity {
 			else if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && e.isActive() && this.isActive())
 				return true;
 		}
+		
 		if(!zombieExist) {
 			handler.con=1;
 			handler.getWorld().setnZombie();
 			handler.getGame().gameState.reset();
 			State.setState(handler.getGame().menuState);
 		}
+		
 		return false;
 	}
 
@@ -134,5 +134,13 @@ public abstract class Entity {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
 	}
 }
