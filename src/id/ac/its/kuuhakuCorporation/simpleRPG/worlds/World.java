@@ -22,7 +22,7 @@ public class World {
 	private int spawnX, spawnY;
 	private int[][] tiles;
 	private int[][] entities;
-	public static int nZombie = 10;
+	public static int nZombie = 5;
 
 	private EntityManager entityManager;
 	private ItemManager itemManager;
@@ -70,7 +70,7 @@ public class World {
 
 		itemManager.render(g);
 		entityManager.render(g);
-		
+
 		showZombie(g);
 	}
 
@@ -176,7 +176,7 @@ public class World {
 	protected boolean collisionWithTile(int x, int y) {
 		return tiles[x][y] == 2 || entities[x][y] == 1;
 	}
-	
+
 	public void showZombie(Graphics g) {
 		Text.drawString(g, "Zombie : " + Integer.toString(nZombie), 450, 25, false, Color.white, Assets.font28);
 	}
