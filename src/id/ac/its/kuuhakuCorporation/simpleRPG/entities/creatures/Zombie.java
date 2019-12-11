@@ -20,7 +20,7 @@ public class Zombie extends Creature {
 		bounds.y = 44;
 		bounds.width = 32;
 		bounds.height = 32;
-		health = 6;
+		health = 3;
 		countStep = 0;
 		
 		animDown = new Animation(500, Assets.zombie_down);
@@ -43,6 +43,16 @@ public class Zombie extends Creature {
 	public void render(Graphics g) {
 		if(this.isActive()) {
 			g.drawImage(getCurrentAnimationFrame(),(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+			switch(health) {
+				case 3:
+					g.drawImage(Assets.health_bar_full,(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset() - 50), width, height, null);
+					break;
+				case 2:
+					g.drawImage(Assets.health_bar_23,(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset() - 50), width, height, null);
+					break;
+				case 1:
+					g.drawImage(Assets.health_bar_13,(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset() - 50), width, height, null);
+			}
 		}
 	}
 	
