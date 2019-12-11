@@ -54,8 +54,9 @@ public abstract class Entity {
 			if((e instanceof Zombie && e.isActive()) || (this instanceof Zombie && this.isActive())) zombieExist = true;
 			
 			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && ((e instanceof Zombie && this instanceof Player && e.isActive()) || (this instanceof Zombie && e instanceof Player && this.isActive())) ) {
-				State.setState(handler.getGame().loseState);
-				handler.getGame().setRunning(false);
+				handler.con=2;
+				handler.getGame().gameState.reset();
+				State.setState(handler.getGame().menuState);
 			} else if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && this instanceof Arrow && this.active && e.active) {
 				if(!(e instanceof Player)) {
 					e.hurt(2);
@@ -66,8 +67,9 @@ public abstract class Entity {
 				return true;
 		}
 		if(!zombieExist) {
-			State.setState(handler.getGame().winState);
-			handler.getGame().setRunning(false);
+			handler.con=1;
+			handler.getGame().gameState.reset();
+			State.setState(handler.getGame().menuState);
 		}
 		return false;
 	}

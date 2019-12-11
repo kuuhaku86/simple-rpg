@@ -25,4 +25,12 @@ public class GameState extends State{
 		world.render(g);
 	}
 
+	@Override
+	public void reset() {
+		this.world = new World(handler, "res/worlds/world1.txt");
+		handler.setWorld(world);
+	}
+	
+	
+
 }

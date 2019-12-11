@@ -9,10 +9,8 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.GameCamera;
 import id.ac.its.kuuhakuCorporation.simpleRPG.input.KeyManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.input.MouseManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.states.GameState;
-import id.ac.its.kuuhakuCorporation.simpleRPG.states.LoseState;
 import id.ac.its.kuuhakuCorporation.simpleRPG.states.MenuState;
 import id.ac.its.kuuhakuCorporation.simpleRPG.states.State;
-import id.ac.its.kuuhakuCorporation.simpleRPG.states.WinState;
 
 public class Game implements Runnable{
 	private Display display;
@@ -28,9 +26,6 @@ public class Game implements Runnable{
 	//States
 	public State gameState;
 	public State menuState;
-	public State loseState;
-	public State winState;
-	
 	//Input
 	private KeyManager keyManager;
 	private MouseManager mouseManager;
@@ -63,8 +58,6 @@ public class Game implements Runnable{
 		
 		gameState = new GameState(handler);
 		menuState = new MenuState(handler);
-		loseState = new LoseState(handler);
-		winState = new WinState(handler);
 		State.setState(menuState);
 	}
 	
@@ -94,6 +87,11 @@ public class Game implements Runnable{
 		g.dispose();
 	}
 	
+	
+	public State getMenuState() {
+		return menuState;
+	}
+
 	public void run() {
 		init();
 		

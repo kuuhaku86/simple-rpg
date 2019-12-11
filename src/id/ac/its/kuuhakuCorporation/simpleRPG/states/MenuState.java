@@ -12,7 +12,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.ui.UIManager;
 
 public class MenuState extends State{
 
-	private UIManager uiManager;
+	public UIManager uiManager;
 
 	public MenuState(Handler handler) {
 		super(handler);
@@ -23,11 +23,11 @@ public class MenuState extends State{
 				Assets.btn_start, new ClickListener() {
 					@Override
 					public void onClick() {
-						handler.getMouseManager().setUIManager(null);
 						State.setState(handler.getGame().gameState);
 					}
 		}));
 	}
+	
 	
 	@Override
 	public void tick() {
@@ -36,9 +36,21 @@ public class MenuState extends State{
 
 	@Override
 	public void render(Graphics g) {
-		Text.drawString(g, "SIMPLE RPG", 320, 150, true, Color.black, Assets.font28);
-		Text.drawString(g, "Start?", 320, 200, true, Color.black, Assets.font28);
-		uiManager.render(g);
+		if(handler.con == 0) {
+			Text.drawString(g, "SIMPLE RPG", 320, 150, true, Color.black, Assets.font28);
+			Text.drawString(g, "Start?", 320, 200, true, Color.black, Assets.font28);
+			uiManager.render(g);
+		}
+		else if(handler.con == 1) {
+			Text.drawString(g, "YOU WIN!", 320, 70, true, Color.black, Assets.font28);
+			Text.drawString(g, "PLAY AGAIN?", 320, 200, true, Color.black, Assets.font28);
+			uiManager.render(g);
+		}
+		else{
+			Text.drawString(g, "YOU LOSE!", 320, 70, true, Color.black, Assets.font28);
+			Text.drawString(g, "TRY AGAIN?", 320, 200, true, Color.black, Assets.font28);
+			uiManager.render(g);
+		}
 	}
 	
 	public UIManager getUiManager() {

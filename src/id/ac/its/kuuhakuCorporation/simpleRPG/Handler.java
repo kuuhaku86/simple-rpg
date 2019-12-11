@@ -9,9 +9,11 @@ public class Handler {
 
 	private Game game;
 	private World world;
+	public int con;
 
 	public Handler(Game game) {
 		this.game = game;
+		con=0;
 	}
 	
 	public GameCamera getGameCamera() {

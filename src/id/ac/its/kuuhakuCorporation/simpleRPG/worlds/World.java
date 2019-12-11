@@ -76,8 +76,8 @@ public class World {
 	private void deployZombie(int numbers) {
 		int i = 0;
 		while(i < numbers) {
-			int height = (int)(Math.random()*20);
-			int width = (int)(Math.random()*20);
+			int height = 5 + (int)(Math.random()*15);
+			int width = 5 + (int)(Math.random()*15);
 			if(!collisionWithTile(width,height)) {
 				entityManager.addEntity(new Zombie(handler,width*64,height*64));
 				entities[width][height] = 1;
@@ -89,8 +89,8 @@ public class World {
 	private void deployTree(int numbers) {
 		int i = 0;
 		while(i < numbers) {
-			int height = (int)(Math.random()*20);
-			int width = (int)(Math.random()*20);
+			int height =  + (int)(Math.random()*17);
+			int width = 3 + (int)(Math.random()*17);
 			if(!collisionWithTile(width,height)) {
 				entityManager.addEntity(new Tree(handler,width*64,height*64));
 				entities[width][height] = 1;
@@ -102,8 +102,8 @@ public class World {
 	private void deployRocks(int numbers) {
 		int i = 0;
 		while(i < numbers) {
-			int height = (int)(Math.random()*20);
-			int width = (int)(Math.random()*20);
+			int height = 3 + (int)(Math.random()*17);
+			int width = 3 + (int)(Math.random()*17);
 			if(!collisionWithTile(width,height)) {
 				entityManager.addEntity(new Rock(handler,width*64,height*64));
 				entities[width][height] = 1;
