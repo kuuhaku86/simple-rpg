@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
+import id.ac.its.kuuhakuCorporation.simpleRPG.entities.Entity;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Animation;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.inventory.Inventory;
@@ -18,16 +19,13 @@ public class Player extends Creature {
 	private long lastAttackTimer, attackTimer = attackCooldown;
 	private Inventory inventory;
 	private ArrayList<Arrow> arrows;
-	
+
 	private boolean upPower,
 					upSpeed;
-	
+
 	private long upSpeedTimer, upSpeedlimit = 10000, lastSpeedTimer;
 	private long upPowerTimer, upPowerlimit = 10000, lastPowerTimer;
 	
-	public static void setAttackCooldown() {
-		Player.attackCooldown -= 200;
-	}
 
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -36,10 +34,10 @@ public class Player extends Creature {
 		bounds.y = 44;
 		bounds.width = 19;
 		bounds.height = 19;
-		
+
 		upPower = false;
 		upSpeed = false;
-		
+
 		health = 3;
 
 		animDown = new Animation(500, Assets.player_down);
@@ -49,6 +47,7 @@ public class Player extends Creature {
 
 		inventory = new Inventory(handler);
 		arrows = new ArrayList<Arrow>();
+		lastHurtTimer = System.currentTimeMillis();
 	}
 
 	@Override
@@ -60,28 +59,34 @@ public class Player extends Creature {
 		animRight.tick();
 		getInput();
 		move();
+
 		for (Arrow arrow : arrows) {
 			arrow.tick();
 		}
+
 		handler.getGameCamera().certerOnEntity(this);
 		checkAttacks();
 		inventory.tick();
-		
+
 		if(upSpeed) {
 			attackCooldown = 200;
 			if((upSpeedTimer - lastSpeedTimer) > upSpeedlimit) {
 				upSpeed = false;
 				attackCooldown = 500;
+				lastSpeedTimer = System.currentTimeMillis();
 			}
 			upSpeedTimer = System.currentTimeMillis();
 		}
-		
+
 		if(upPower) {
 			if((upPowerTimer - lastPowerTimer) > upPowerlimit) {
 				upPower = false;
+				lastPowerTimer = System.currentTimeMillis();
 			}
 			upPowerTimer = System.currentTimeMillis();
 		}
+
+		checkAttacked();
 	}
 
 	private void checkAttacks() {
@@ -109,6 +114,14 @@ public class Player extends Creature {
 			return;
 
 		attackTimer = 0;
+	}
+
+	public void checkAttacked() {
+		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
+			if(e instanceof Zombie && e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(bounds.x, bounds.y))) {
+				this.hurt(e.getDamage());
+			}
+		}
 	}
 
 	@Override
@@ -144,10 +157,10 @@ public class Player extends Creature {
 		g.drawImage(getCurrentAnimationFrame(),(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 
 		drawHeart(g);
-		
-		if(upPower) 
+
+		if(upPower)
 			drawPowerUp(g);
-		if(upSpeed) 
+		if(upSpeed)
 			drawSpeedUp(g);
 	}
 
@@ -172,6 +185,19 @@ public class Player extends Creature {
 			return animDown.getCurrentFrame();
 	}
 
+	@Override
+	public void hurt(int dmg) {
+		hurtTimer = System.currentTimeMillis() - lastHurtTimer;
+		if(hurtTimer < hurtCooldown)
+			return;
+		lastHurtTimer = System.currentTimeMillis();
+		health -= dmg;
+		if(health<=0) {
+			active = false;
+			die();
+		}
+	}
+
 	public Inventory getInventory() {
 		return inventory;
 	}
@@ -179,29 +205,29 @@ public class Player extends Creature {
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
-	
+
 	public boolean getUpSpeed() {
 		return this.upSpeed;
 	}
-	
+
 	public boolean getUpPower() {
 		return this.upPower;
 	}
-	
+
 	public void gettingUpSpeed() {
 		upSpeed = true;
-		upSpeedTimer = lastSpeedTimer = System.currentTimeMillis(); 
+		upSpeedTimer = lastSpeedTimer = System.currentTimeMillis();
 	}
-	
+
 	public void gettingUpPower() {
 		upPower = true;
-		upPowerTimer = lastPowerTimer = System.currentTimeMillis(); 
+		upPowerTimer = lastPowerTimer = System.currentTimeMillis();
 	}
-	
+
 	public void drawPowerUp(Graphics g) {
 		g.drawImage(Assets.upPower,10,40, width/2, height/2, null);
 	}
-	
+
 	public void drawSpeedUp(Graphics g) {
 		g.drawImage(Assets.upSpeed,10,74, width/2, height/2, null);
 	}
