@@ -89,7 +89,7 @@ public class World {
 	}
 
 
-	private void deployRocks(int numbers) {
+	private void deployTree(int numbers) {
 		int i = 0;
 		while(i < numbers) {
 			int height = 3 + (int)(Math.random()*16);
