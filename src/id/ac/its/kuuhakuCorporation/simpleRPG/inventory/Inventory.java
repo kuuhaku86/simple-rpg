@@ -40,14 +40,15 @@ public class Inventory {
 		
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE) && inventoryItems.size() > 0) {
 			int health = handler.getWorld().getEntityManager().getPlayer().getHealth();
-			if(health < 5) {
+			if(health < 5 && inventoryItems.get(selectedItem).getTexture().equals(Assets.herb) ) {
 				handler.getWorld().getEntityManager().getPlayer().setHealth(health + 1);
-				if(inventoryItems.get(selectedItem).getCount() > 1) {
-					int number = inventoryItems.get(selectedItem).getCount();
-					inventoryItems.get(selectedItem).setCount(number - 1);
-				}else {
-					inventoryItems.remove(selectedItem);
-				}
+				reduceItem(selectedItem);
+			}else if(inventoryItems.get(selectedItem).getTexture().equals(Assets.upSpeed)) {
+				handler.getWorld().getEntityManager().getPlayer().gettingUpSpeed();
+				reduceItem(selectedItem);
+			}else if(inventoryItems.get(selectedItem).getTexture().equals(Assets.upPower)) {
+				handler.getWorld().getEntityManager().getPlayer().gettingUpPower();
+				reduceItem(selectedItem);
 			}
 		}
 		
@@ -110,5 +111,13 @@ public class Inventory {
 	public boolean isActive() {
 		return active;
 	}
-
+	
+	public void reduceItem(int selectedItem) {
+		if(inventoryItems.get(selectedItem).getCount() > 1) {
+			int number = inventoryItems.get(selectedItem).getCount();
+			inventoryItems.get(selectedItem).setCount(number - 1);
+		}else {
+			inventoryItems.remove(selectedItem);
+		}
+	}
 }

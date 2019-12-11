@@ -10,7 +10,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 public class Item {
 
 	public static Item[] items = new Item[256];
-	public static Item herbItem = new Item(Assets.wood, "herb",0);
+	public static Item herbItem = new Item(Assets.herb, "herb",0);
 	public static Item upPower = new Item(Assets.upPower, "power up",0);
 	public static Item upSpeed = new Item(Assets.upSpeed, "speed up",0);
 	

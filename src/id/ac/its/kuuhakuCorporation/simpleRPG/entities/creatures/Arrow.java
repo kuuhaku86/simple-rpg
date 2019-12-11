@@ -35,6 +35,12 @@ public class Arrow extends Creature {
 
 	@Override
 	public void tick() {
+		if(handler.getWorld().getEntityManager().getPlayer().getUpPower()) {
+			damage = 2;
+		}else {
+			damage = 1;
+		}
+		
 		move();
 	}
 
