@@ -65,6 +65,7 @@ public abstract class Entity {
 					lastHurtTimer = System.currentTimeMillis();
 					if(hurtTimer < hurtCooldown)
 						return false;
+					Sound.pHit.play();
 					this.hurt(this.damage);
 			} else if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && this instanceof Arrow && this.active && e.active) {
 				if(!(e instanceof Player)) {
@@ -76,7 +77,7 @@ public abstract class Entity {
 				return true;
 		}
 		if(!zombieExist) {
-			Sound.main.stop();
+			Sound.zDie.stop();
 			Sound.win.play();
 			handler.con=1;
 			handler.getWorld().setnZombie();

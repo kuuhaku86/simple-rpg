@@ -26,7 +26,6 @@ public class MenuState extends State{
 					public void onClick() {
 						Sound.lose.stop();
 						Sound.win.stop();
-						Sound.main.loop();
 						State.setState(handler.getGame().gameState);
 					}
 		}));

@@ -115,7 +115,6 @@ public class Player extends Creature {
 	public void die() {
 		handler.con=2;
 		handler.getGame().gameState.reset();
-		Sound.main.stop();
 		Sound.lose.play();
 		State.setState(handler.getGame().menuState);
 	}

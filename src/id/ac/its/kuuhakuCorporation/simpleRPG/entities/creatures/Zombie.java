@@ -7,6 +7,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Animation;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.items.Item;
+import id.ac.its.kuuhakuCorporation.simpleRPG.utils.Sound;
 
 public class Zombie extends Creature {
 
@@ -113,6 +114,7 @@ public class Zombie extends Creature {
 
 	@Override
 	public void die() {
+		Sound.zDie.play();
 		this.active = false;
 		drop = (int) (Math.random()*10);
 		if(drop > 8)
