@@ -8,6 +8,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Arrow;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Player;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Zombie;
 import id.ac.its.kuuhakuCorporation.simpleRPG.states.State;
+import id.ac.its.kuuhakuCorporation.simpleRPG.utils.Sound;
 
 public abstract class Entity {
 
@@ -73,6 +74,8 @@ public abstract class Entity {
 				return true;
 		}
 		if(!zombieExist) {
+			Sound.main.stop();
+			Sound.win.play();
 			handler.con=1;
 			handler.getWorld().setnZombie();
 			handler.getGame().gameState.reset();

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
+import id.ac.its.kuuhakuCorporation.simpleRPG.utils.Sound;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Text;
 import id.ac.its.kuuhakuCorporation.simpleRPG.ui.ClickListener;
@@ -23,6 +24,9 @@ public class MenuState extends State{
 				Assets.btn_start, new ClickListener() {
 					@Override
 					public void onClick() {
+						Sound.lose.stop();
+						Sound.win.stop();
+						Sound.main.loop();
 						State.setState(handler.getGame().gameState);
 					}
 		}));

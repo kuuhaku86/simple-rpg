@@ -79,7 +79,7 @@ public class Zombie extends Creature {
 			
 			switch(randomDirection) {
 				case 1 :
-					yMove -= 1;
+					yMove -= 1; 
 					break;
 				case 2 :
 					yMove += 1;

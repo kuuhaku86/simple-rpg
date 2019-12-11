@@ -9,6 +9,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Animation;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.inventory.Inventory;
 import id.ac.its.kuuhakuCorporation.simpleRPG.states.State;
+import id.ac.its.kuuhakuCorporation.simpleRPG.utils.Sound;
 
 public class Player extends Creature {
 
@@ -91,6 +92,8 @@ public class Player extends Creature {
 	public void die() {
 		handler.con=2;
 		handler.getGame().gameState.reset();
+		Sound.main.stop();
+		Sound.lose.play();
 		State.setState(handler.getGame().menuState);
 	}
 
