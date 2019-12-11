@@ -23,7 +23,9 @@ public class Assets {
 	public static BufferedImage arrow_up,arrow_down,arrow_left,arrow_right;
 	public static BufferedImage heart;
 	public static BufferedImage title;
-	
+	public static BufferedImage health_bar_full,
+									health_bar_23,
+									health_bar_13;
 	
 	public static void init() {
 		font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
@@ -78,5 +80,9 @@ public class Assets {
 		arrow_right = sheet.crop(2*width, height*3, width, height);
 		
 		heart = sheet.crop(3*width, 2*height, width, height);
+		
+		health_bar_full = sheet.crop(3*width, 4*height, width, height);
+		health_bar_23 = sheet.crop(2*width, 4*height, width, height);
+		health_bar_13 = sheet.crop(1*width, 4*height, width, height);
 	}
 }
