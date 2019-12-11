@@ -20,7 +20,7 @@ public class World {
 	private int spawnX, spawnY;
 	private int[][] tiles;
 	private int[][] entities;
-	public static int nZombie = 10;
+	public static int nZombie = 1;
 
 	private EntityManager entityManager;
 	private ItemManager itemManager;
@@ -42,7 +42,7 @@ public class World {
 
 		deployZombie(nZombie);
 	}
-	
+
 		public void setnZombie() {
 		this.nZombie += 3;
 	}
@@ -82,7 +82,6 @@ public class World {
 
 	private void deployZombie(int numbers) {
 		int i = 0;
-		System.out.println(numbers);
 		while(i < numbers) {
 			int height = 5 + (int)(Math.random()*15);
 			int width = 5 + (int)(Math.random()*15);

@@ -8,6 +8,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Arrow;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Player;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Zombie;
 import id.ac.its.kuuhakuCorporation.simpleRPG.states.State;
+import id.ac.its.kuuhakuCorporation.simpleRPG.utils.Sound;
 
 public abstract class Entity {
 
@@ -56,14 +57,7 @@ public abstract class Entity {
 			if(e.equals(this)) continue;
 
 			if((e instanceof Zombie && e.isActive()) || (this instanceof Zombie && this.isActive())) zombieExist = true;
-
-//			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && ((e instanceof Zombie && this instanceof Player && e.isActive()) || (this instanceof Zombie && e instanceof Player && this.isActive())) ) {
-//					if(this instanceof Player)
-//						this.hurt(this.damage);
-//					else	
-//						e.hurt(damage);
-//			} else 
-				if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && this instanceof Arrow && this.active && e.active) {
+			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && this instanceof Arrow && this.active && e.active) {
 				if(!(e instanceof Player)) {
 					e.hurt(this.damage);
 				}
@@ -74,6 +68,8 @@ public abstract class Entity {
 		}
 		
 		if(!zombieExist) {
+			Sound.zDie.stop();
+			Sound.win.play();
 			handler.con=1;
 			handler.getWorld().setnZombie();
 			handler.getGame().gameState.reset();
