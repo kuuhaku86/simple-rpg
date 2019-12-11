@@ -38,6 +38,19 @@ public class Inventory {
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN))
 			selectedItem++;
 		
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE) && inventoryItems.size() > 0) {
+			int health = handler.getWorld().getEntityManager().getPlayer().getHealth();
+			if(health < 5) {
+				handler.getWorld().getEntityManager().getPlayer().setHealth(health + 1);
+				if(inventoryItems.get(selectedItem).getCount() > 1) {
+					int number = inventoryItems.get(selectedItem).getCount();
+					inventoryItems.get(selectedItem).setCount(number - 1);
+				}else {
+					inventoryItems.remove(selectedItem);
+				}
+			}
+		}
+		
 		if(selectedItem <0)
 			selectedItem = inventoryItems.size() -1;
 		else if(selectedItem >= inventoryItems.size())
