@@ -87,18 +87,6 @@ public class World {
 		}
 	}
 	
-	private void deployTree(int numbers) {
-		int i = 0;
-		while(i < numbers) {
-			int height =  + (int)(Math.random()*17);
-			int width = 3 + (int)(Math.random()*17);
-			if(!collisionWithTile(width,height)) {
-				entityManager.addEntity(new Tree(handler,width*64,height*64));
-				entities[width][height] = 1;
-				i++;
-			}
-		}
-	}
 	
 	private void deployRocks(int numbers) {
 		int i = 0;
@@ -107,6 +95,19 @@ public class World {
 			int width = 3 + (int)(Math.random()*17);
 			if(!collisionWithTile(width,height)) {
 				entityManager.addEntity(new Rock(handler,width*64,height*64));
+				entities[width][height] = 1;
+				i++;
+			}
+		}
+	}
+
+	private void deployTree(int numbers) {
+		int i = 0;
+		while(i < numbers) {
+			int height =  + (int)(Math.random()*17);
+			int width = 3 + (int)(Math.random()*17);
+			if(!collisionWithTile(width,height)) {
+				entityManager.addEntity(new Tree(handler,width*64,height*64));
 				entities[width][height] = 1;
 				i++;
 			}

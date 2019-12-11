@@ -37,7 +37,7 @@ public class MenuState extends State{
 	@Override
 	public void render(Graphics g) {
 		if(handler.con == 0) {
-			Text.drawString(g, "SIMPLE RPG", 320, 150, true, Color.black, Assets.font28);
+			g.drawImage(Assets.title,120,30, 400,150,null);
 			Text.drawString(g, "Start?", 320, 200, true, Color.black, Assets.font28);
 			uiManager.render(g);
 		}
