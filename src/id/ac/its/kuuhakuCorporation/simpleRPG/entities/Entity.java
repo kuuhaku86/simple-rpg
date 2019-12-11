@@ -21,6 +21,7 @@ public abstract class Entity {
 	protected int health;
 	protected boolean active = true;
 	private long lastHurtTimer, hurtCooldown = 500, hurtTimer = hurtCooldown;
+	protected int damage;
 
 	public Entity(Handler handler, float x, float y, int width, int height) {
 		this.handler = handler;
@@ -33,6 +34,7 @@ public abstract class Entity {
 		lastHurtTimer = System.currentTimeMillis();
 
 		bounds = new Rectangle(0, 0, width, height);
+		damage = 1;
 	}
 
 	public abstract void tick();
@@ -63,10 +65,10 @@ public abstract class Entity {
 					lastHurtTimer = System.currentTimeMillis();
 					if(hurtTimer < hurtCooldown)
 						return false;
-					this.hurt(1);
+					this.hurt(this.damage);
 			} else if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)) && this instanceof Arrow && this.active && e.active) {
 				if(!(e instanceof Player)) {
-					e.hurt(1);
+					e.hurt(this.damage);
 				}
 				this.active = false;
 			}
@@ -104,7 +106,7 @@ public abstract class Entity {
 	public void setY(float y) {
 		this.y = y;
 	}
-
+	
 	public int getWidth() {
 		return width;
 	}

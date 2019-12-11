@@ -42,7 +42,7 @@ public class World {
 
 		deployZombie(nZombie);
 	}
-	
+
 		public void setnZombie() {
 		this.nZombie += 3;
 	}

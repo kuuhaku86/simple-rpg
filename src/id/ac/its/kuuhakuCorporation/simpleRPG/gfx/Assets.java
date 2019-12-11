@@ -9,7 +9,7 @@ public class Assets {
 	
 	public static Font font28;
 	
-	public static BufferedImage  dirt, grass, stone, tree,bush,wood;
+	public static BufferedImage  dirt, grass, stone, tree,bush,herb;
 	public static BufferedImage[] player_down,
 									player_up,
 									player_left,
@@ -73,7 +73,7 @@ public class Assets {
 		stone = sheet.crop(width * 3, 0, width, height);
 		tree = sheet.crop(0, 0, width, height*2);
 		bush = sheet.crop(0, 0, width, height);
-		wood = sheet.crop(width, height, width, height);
+		herb = sheet.crop(width, height, width, height);
 		upPower= sheet.crop(width * 4,4*height,width,height);
 		upSpeed= sheet.crop(width * 5,4*height,width,height);
 		

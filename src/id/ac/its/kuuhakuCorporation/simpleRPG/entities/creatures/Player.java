@@ -18,9 +18,13 @@ public class Player extends Creature {
 	private long lastAttackTimer, attackTimer = attackCooldown;
 	private Inventory inventory;
 	private ArrayList<Arrow> arrows;
-
 	
-
+	private boolean upPower,
+					upSpeed;
+	
+	private long upSpeedTimer, upSpeedlimit = 3000, lastSpeedTimer;
+	private long upPowerTimer, upPowerlimit = 3000, lastPowerTimer;
+	
 	public static void setAttackCooldown() {
 		Player.attackCooldown -= 200;
 	}
@@ -32,7 +36,10 @@ public class Player extends Creature {
 		bounds.y = 44;
 		bounds.width = 19;
 		bounds.height = 19;
-
+		
+		upPower = false;
+		upSpeed = false;
+		
 		health = 3;
 
 		animDown = new Animation(500, Assets.player_down);
@@ -59,6 +66,22 @@ public class Player extends Creature {
 		handler.getGameCamera().certerOnEntity(this);
 		checkAttacks();
 		inventory.tick();
+		
+		if(upSpeed) {
+			attackCooldown = 200;
+			if((upSpeedTimer - lastSpeedTimer) > upSpeedlimit) {
+				upSpeed = false;
+				attackCooldown = 500;
+			}
+			upSpeedTimer = System.currentTimeMillis();
+		}
+		
+		if(upPower) {
+			if((upPowerTimer - lastPowerTimer) > upPowerlimit) {
+				upPower = false;
+			}
+			upPowerTimer = System.currentTimeMillis();
+		}
 	}
 
 	private void checkAttacks() {
@@ -120,6 +143,11 @@ public class Player extends Creature {
 		g.drawImage(getCurrentAnimationFrame(),(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 
 		drawHeart(g);
+		
+		if(upPower) 
+			drawPowerUp(g);
+		if(upSpeed) 
+			drawSpeedUp(g);
 	}
 
 	public void postRender(Graphics g) {
@@ -150,5 +178,30 @@ public class Player extends Creature {
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
-
+	
+	public boolean getUpSpeed() {
+		return this.upSpeed;
+	}
+	
+	public boolean getUpPower() {
+		return this.upPower;
+	}
+	
+	public void gettingUpSpeed() {
+		upSpeed = true;
+		upSpeedTimer = lastSpeedTimer = System.currentTimeMillis(); 
+	}
+	
+	public void gettingUpPower() {
+		upPower = true;
+		upPowerTimer = lastPowerTimer = System.currentTimeMillis(); 
+	}
+	
+	public void drawPowerUp(Graphics g) {
+		g.drawImage(Assets.upPower,10,40, width/2, height/2, null);
+	}
+	
+	public void drawSpeedUp(Graphics g) {
+		g.drawImage(Assets.upSpeed,10,74, width/2, height/2, null);
+	}
 }

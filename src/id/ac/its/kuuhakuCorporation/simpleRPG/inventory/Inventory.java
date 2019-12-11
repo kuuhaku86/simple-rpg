@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import id.ac.its.kuuhakuCorporation.simpleRPG.Handler;
+import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Player;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Text;
 import id.ac.its.kuuhakuCorporation.simpleRPG.items.Item;
@@ -39,15 +40,20 @@ public class Inventory {
 			selectedItem++;
 		
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE) && inventoryItems.size() > 0) {
-			int health = handler.getWorld().getEntityManager().getPlayer().getHealth();
-			if(health < 5) {
-				handler.getWorld().getEntityManager().getPlayer().setHealth(health + 1);
-				if(inventoryItems.get(selectedItem).getCount() > 1) {
-					int number = inventoryItems.get(selectedItem).getCount();
-					inventoryItems.get(selectedItem).setCount(number - 1);
-				}else {
-					inventoryItems.remove(selectedItem);
-				}
+			Player player = handler.getWorld().getEntityManager().getPlayer();
+			int health = player.getHealth();
+			boolean poweredUp = player.getUpPower(),
+					speededUp = player.getUpSpeed();
+			
+			if(health < 5 && inventoryItems.get(selectedItem).getTexture().equals(Assets.herb) ) {
+				player.setHealth(health + 1);
+				reduceItem(selectedItem);
+			}else if(inventoryItems.get(selectedItem).getTexture().equals(Assets.upSpeed) && !speededUp) {
+				player.gettingUpSpeed();
+				reduceItem(selectedItem);
+			}else if(inventoryItems.get(selectedItem).getTexture().equals(Assets.upPower) && !poweredUp) {
+				player.gettingUpPower();
+				reduceItem(selectedItem);
 			}
 		}
 		
@@ -110,5 +116,13 @@ public class Inventory {
 	public boolean isActive() {
 		return active;
 	}
-
+	
+	public void reduceItem(int selectedItem) {
+		if(inventoryItems.get(selectedItem).getCount() > 1) {
+			int number = inventoryItems.get(selectedItem).getCount();
+			inventoryItems.get(selectedItem).setCount(number - 1);
+		}else {
+			inventoryItems.remove(selectedItem);
+		}
+	}
 }

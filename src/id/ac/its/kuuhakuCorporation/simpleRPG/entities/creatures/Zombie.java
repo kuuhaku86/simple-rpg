@@ -9,7 +9,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.items.Item;
 
 public class Zombie extends Creature {
-	
+
 	private Animation animDown,animUp,animLeft,animRight;
 	private int countStep;
 
@@ -22,7 +22,7 @@ public class Zombie extends Creature {
 		bounds.height = 32;
 		health = 3;
 		countStep = 0;
-		
+
 		animDown = new Animation(500, Assets.zombie_down);
 		animUp= new Animation(500, Assets.zombie_up);
 		animLeft = new Animation(500, Assets.zombie_left);
@@ -55,7 +55,7 @@ public class Zombie extends Creature {
 			}
 		}
 	}
-	
+
 	private BufferedImage getCurrentAnimationFrame() {
 		if(xMove <0)
 			return animLeft.getCurrentFrame();
@@ -66,33 +66,48 @@ public class Zombie extends Creature {
 		else
 			return animDown.getCurrentFrame();
 	}
-	
+
 	public void randomMove() {
+		float playerX = handler.getWorld().getEntityManager().getPlayer().getX();
+		float playerY = handler.getWorld().getEntityManager().getPlayer().getY();
+
+		float range = (float) Math.sqrt(Math.pow((playerX - this.x),2) + Math.pow((playerY - this.y),2));
+
 		if(countStep > 25) {
 			xMove = 0;
 			yMove = 0;
 			countStep = 0;
 		}
-		
+
 		if(!(xMove > 1 || xMove < -1 || yMove > 1 || yMove < -1)) {
-			int randomDirection = (int)(Math.random() * 4 + 1);
-			
-			switch(randomDirection) {
-				case 1 :
-					yMove -= 1; 
-					break;
-				case 2 :
-					yMove += 1;
-					break;
-				case 3 :
-					xMove -= 1;
-					break;
-				case 4 :
-					xMove += 1;
-					break;
+
+
+			if(range < 300) {
+				if(this.x < playerX) xMove +=1;
+				if(this.x > playerX) xMove -=1;
+				if(this.y < playerY) yMove +=1;
+				if(this.y > playerY) yMove -=1;
+			}
+
+			else {
+				int randomDirection = (int)(Math.random() * 4 + 1);
+				switch(randomDirection) {
+					case 1 :
+						yMove -= 1;
+						break;
+					case 2 :
+						yMove += 1;
+						break;
+					case 3 :
+						xMove -= 1;
+						break;
+					case 4 :
+						xMove += 1;
+						break;
+				}
 			}
 		}
-		
+
 		countStep++;
 	}
 
@@ -105,5 +120,5 @@ public class Zombie extends Creature {
 		else if(drop > 6)
 			handler.getWorld().getItemManager().addItem(Item.upPower.createNew((int) x, (int) y));
 	}
-	
+
 }

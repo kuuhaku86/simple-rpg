@@ -14,27 +14,40 @@ public class Arrow extends Creature {
 	public Arrow(Handler handler, float x, float y, BufferedImage image) {
 		super(handler, x, y, 50, 50);
 		this.image = image;
+		
 		if(image.equals(Assets.arrow_up)) {
 			yMove -= 5;
 			this.y -= 64;
+			bounds.x = 0;
 		}
 		else if(image.equals(Assets.arrow_down)) {
 			yMove += 5;
-			this.y += 64;
+			this.y += 72;
+			bounds.x = 0;
 		}
 		else if(image.equals(Assets.arrow_left)) {
 			xMove -= 5;
 			this.x -= 64;
-		}
-		else {
+			bounds.y = 0;
+		} else {
 			xMove += 5;
 			this.x += 64;
+			bounds.y = 0;
 		}
+		
 		this.active = true;
+		
+		
 	}
 
 	@Override
 	public void tick() {
+		if(handler.getWorld().getEntityManager().getPlayer().getUpPower()) {
+			damage = 2;
+		}else {
+			damage = 1;
+		}
+		
 		move();
 	}
 
