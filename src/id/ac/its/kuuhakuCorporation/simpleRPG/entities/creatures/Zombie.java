@@ -89,7 +89,11 @@ public class Zombie extends Creature {
 	@Override
 	public void die() {
 		this.active = false;
-		handler.getWorld().getItemManager().addItem(Item.upPower.createNew((int) x, (int) y));
+		drop = (int) (Math.random()*10);
+		if(drop > 8)
+			handler.getWorld().getItemManager().addItem(Item.upSpeed.createNew((int) x, (int) y));
+		else if(drop > 6)
+			handler.getWorld().getItemManager().addItem(Item.upPower.createNew((int) x, (int) y));
 	}
 	
 }

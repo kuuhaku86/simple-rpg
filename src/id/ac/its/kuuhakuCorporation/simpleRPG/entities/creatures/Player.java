@@ -13,10 +13,16 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.states.State;
 public class Player extends Creature {
 
 	private Animation animDown,animUp,animLeft,animRight;
-	private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
+	private static long  attackCooldown = 500;
+	private long lastAttackTimer, attackTimer = attackCooldown;
 	private Inventory inventory;
 	private ArrayList<Arrow> arrows;
 
+	
+
+	public static void setAttackCooldown() {
+		Player.attackCooldown -= 200;
+	}
 
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
