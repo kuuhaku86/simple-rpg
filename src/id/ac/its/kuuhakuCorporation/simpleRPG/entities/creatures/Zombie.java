@@ -40,8 +40,9 @@ public class Zombie extends Creature {
 
 	@Override
 	public void render(Graphics g) {
-		if(this.isActive())
+		if(this.isActive()) {
 			g.drawImage(getCurrentAnimationFrame(),(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+		}
 	}
 	
 	private BufferedImage getCurrentAnimationFrame() {
@@ -88,5 +89,5 @@ public class Zombie extends Creature {
 	public void die() {
 		this.active = false;
 	}
-
+	
 }
