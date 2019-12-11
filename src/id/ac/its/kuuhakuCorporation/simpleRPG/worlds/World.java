@@ -39,7 +39,7 @@ public class World {
 
 		deployBush(20);
 
-		deployZombie(10);
+		deployZombie(1);
 	}
 
 	public void tick() {
