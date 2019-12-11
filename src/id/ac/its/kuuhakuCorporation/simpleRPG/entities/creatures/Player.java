@@ -67,7 +67,7 @@ public class Player extends Creature {
 		inventory.tick();
 		
 		if(upSpeed) {
-			attackCooldown = 100;
+			attackCooldown = 200;
 			if((upSpeedTimer - lastSpeedTimer) > upSpeedlimit) {
 				upSpeed = false;
 				attackCooldown = 500;
@@ -76,10 +76,8 @@ public class Player extends Creature {
 		}
 		
 		if(upPower) {
-//			attackCooldown = 100;
 			if((upPowerTimer - lastPowerTimer) > upPowerlimit) {
 				upPower = false;
-//				attackCooldown = 500;
 			}
 			upPowerTimer = System.currentTimeMillis();
 		}
@@ -142,6 +140,11 @@ public class Player extends Creature {
 		g.drawImage(getCurrentAnimationFrame(),(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 
 		drawHeart(g);
+		
+		if(upPower) 
+			drawPowerUp(g);
+		if(upSpeed) 
+			drawSpeedUp(g);
 	}
 
 	public void postRender(Graphics g) {
@@ -189,5 +192,13 @@ public class Player extends Creature {
 	public void gettingUpPower() {
 		upPower = true;
 		upPowerTimer = lastPowerTimer = System.currentTimeMillis(); 
+	}
+	
+	public void drawPowerUp(Graphics g) {
+		g.drawImage(Assets.upPower,10,40, width/2, height/2, null);
+	}
+	
+	public void drawSpeedUp(Graphics g) {
+		g.drawImage(Assets.upSpeed,10,74, width/2, height/2, null);
 	}
 }

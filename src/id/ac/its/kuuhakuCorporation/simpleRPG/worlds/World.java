@@ -20,7 +20,7 @@ public class World {
 	private int spawnX, spawnY;
 	private int[][] tiles;
 	private int[][] entities;
-	public static int nZombie = 5;
+	public static int nZombie = 10;
 
 	private EntityManager entityManager;
 	private ItemManager itemManager;
