@@ -28,209 +28,209 @@ public class Player extends Creature {
  private long hurtTimer,lastHurtTimer, hurtCooldown = 1000; 
 
  public Player(Handler handler, float x, float y) {
-  super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+	 super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 
-  bounds.x = 22;
-  bounds.y = 44;
-  bounds.width = 19;
-  bounds.height = 19;
+	 bounds.x = 22;
+	 bounds.y = 44;
+	 bounds.width = 19;
+	 bounds.height = 19;
   
-  upPower = false;
-  upSpeed = false;
+	 upPower = false;
+	 upSpeed = false;
   
-  health = 3;
+	 health = 3;
 
-  animDown = new Animation(500, Assets.player_down);
-  animUp= new Animation(500, Assets.player_up);
-  animLeft = new Animation(500, Assets.player_left);
-  animRight = new Animation(500, Assets.player_right);
+	 animDown = new Animation(500, Assets.player_down);
+	 animUp= new Animation(500, Assets.player_up);
+	 animLeft = new Animation(500, Assets.player_left);
+	 animRight = new Animation(500, Assets.player_right);
 
-  inventory = new Inventory(handler);
-  arrows = new ArrayList<Arrow>();
-  lastHurtTimer = System.currentTimeMillis();
+	 inventory = new Inventory(handler);
+	 arrows = new ArrayList<Arrow>();
+	 lastHurtTimer = System.currentTimeMillis();
  }
 
  @Override
  public void tick() {
 
-  animDown.tick();
-  animUp.tick();
-  animLeft.tick();
-  animRight.tick();
-  getInput();
-  move();
+	 animDown.tick();
+	 animUp.tick();
+	 animLeft.tick();
+	 animRight.tick();
+	 getInput();
+	 move();
   
-  for (Arrow arrow : arrows) {
-   arrow.tick();
-  }
+	 for (Arrow arrow : arrows) {
+		 arrow.tick();
+	 }
   
-  handler.getGameCamera().certerOnEntity(this);
-  checkAttacks();
-  inventory.tick();
+	 handler.getGameCamera().certerOnEntity(this);
+	 checkAttacks();
+	 inventory.tick();
   
-  if(upSpeed) {
-   attackCooldown = 200;
-   if((upSpeedTimer - lastSpeedTimer) > upSpeedlimit) {
-    upSpeed = false;
-    attackCooldown = 500;
-    lastSpeedTimer = System.currentTimeMillis();
-   }
-   upSpeedTimer = System.currentTimeMillis();
-  }
+	 if(upSpeed) {
+		 attackCooldown = 200;
+		 if((upSpeedTimer - lastSpeedTimer) > upSpeedlimit) {
+			 upSpeed = false;
+			 attackCooldown = 500;
+			 lastSpeedTimer = System.currentTimeMillis();
+		 }
+		 upSpeedTimer = System.currentTimeMillis();
+	 }
   
-  if(upPower) {
-   if((upPowerTimer - lastPowerTimer) > upPowerlimit) {
-    upPower = false;
-    lastPowerTimer = System.currentTimeMillis();
-   }
-   upPowerTimer = System.currentTimeMillis();
-  }
+	 if(upPower) {
+		 if((upPowerTimer - lastPowerTimer) > upPowerlimit) {
+			 upPower = false;
+			 lastPowerTimer = System.currentTimeMillis();
+		 }
+		 upPowerTimer = System.currentTimeMillis();
+	 }
   
-  checkAttacked();
+	 checkAttacked();
  }
 
  private void checkAttacks() {
-  attackTimer += System.currentTimeMillis() - lastAttackTimer;
-  lastAttackTimer = System.currentTimeMillis();
-  if(attackTimer < attackCooldown)
-   return;
+	 attackTimer += System.currentTimeMillis() - lastAttackTimer;
+	 lastAttackTimer = System.currentTimeMillis();
+	 if(attackTimer < attackCooldown)
+		 return;
 
-  if(inventory.isActive())
-   return;
+	 if(inventory.isActive())
+		 return;
 
-  if(handler.getKeyManager().aUp) {
-   arrows.add(new Arrow(handler, this.x,this.y, Assets.arrow_up));
-  }
-  else if(handler.getKeyManager().aDown) {
-   arrows.add(new Arrow(handler, this.x, this.y, Assets.arrow_down));
-  }
-  else if(handler.getKeyManager().aLeft) {
-   arrows.add(new Arrow(handler, this.x, this.y, Assets.arrow_left));
-  }
-  else if(handler.getKeyManager().aRight) {
-   arrows.add(new Arrow(handler, this.x, this.y, Assets.arrow_right));
-  }
-  else
-   return;
+	 if(handler.getKeyManager().aUp) {
+		 arrows.add(new Arrow(handler, this.x,this.y, Assets.arrow_up));
+	 }
+	 else if(handler.getKeyManager().aDown) {
+		 arrows.add(new Arrow(handler, this.x, this.y, Assets.arrow_down));
+	 }
+	 else if(handler.getKeyManager().aLeft) {
+		 arrows.add(new Arrow(handler, this.x, this.y, Assets.arrow_left));
+	 }
+	 else if(handler.getKeyManager().aRight) {
+		 arrows.add(new Arrow(handler, this.x, this.y, Assets.arrow_right));
+	 }
+	 else
+		 return;
 
-  attackTimer = 0;
+	 attackTimer = 0;
  }
  
  public void checkAttacked() {
-  for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
-   if(e instanceof Zombie && e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(bounds.x, bounds.y))) {
-    this.hurt(e.getDamage());
-   }
-  }
+	 for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
+		 if(e instanceof Zombie && e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(bounds.x, bounds.y))) {
+			 this.hurt(e.getDamage());
+		 }
+	 }
  }
 
  @Override
  public void die() {
-  handler.con=2;
-  handler.getGame().gameState.reset();
-  Sound.main.stop();
-  Sound.pHit.stop();
-  Sound.lose.play();
-  State.setState(handler.getGame().menuState);
+	 handler.con=2;
+	 handler.getGame().gameState.reset();
+	 Sound.main.stop();
+	 Sound.pHit.stop();
+	 Sound.lose.play();
+	 State.setState(handler.getGame().menuState);
  }
 
  private void getInput() {
-  xMove = 0;
-  yMove = 0;
+	 xMove = 0;
+	 yMove = 0;
 
-  if(handler.getKeyManager().up)
-   yMove = -speed;
-  if(handler.getKeyManager().down)
-   yMove = speed;
-  if(handler.getKeyManager().left)
-   xMove = -speed;
-  if(handler.getKeyManager().right)
-   xMove = speed;
+	 if(handler.getKeyManager().up)
+		 yMove = -speed;
+	 if(handler.getKeyManager().down)
+		 yMove = speed;
+	 if(handler.getKeyManager().left)
+		 xMove = -speed;
+	 if(handler.getKeyManager().right)
+		 xMove = speed;
  }
 
  @Override
  public void render(Graphics g) {
-  for (Arrow arrow : arrows) {
-   arrow.render(g);
-  }
+	 for (Arrow arrow : arrows) {
+		 arrow.render(g);
+	 }
 
-  g.drawImage(getCurrentAnimationFrame(),(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+	 g.drawImage(getCurrentAnimationFrame(),(int) (x - handler.getGameCamera().getxOffset()),(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 
-  drawHeart(g);
+	 drawHeart(g);
   
-  if(upPower) 
-   drawPowerUp(g);
-  if(upSpeed) 
-   drawSpeedUp(g);
+	 if(upPower) 
+		 drawPowerUp(g);
+	 if(upSpeed) 
+		 drawSpeedUp(g);
  }
 
  public void postRender(Graphics g) {
-  inventory.render(g);
+	 inventory.render(g);
  }
 
  private void drawHeart(Graphics g) {
-  for(int i = 0; i < health;i++) {
-   g.drawImage(Assets.heart,10 + 32 * i,10, width/2, height/2, null);
-  }
+	 for(int i = 0; i < health;i++) {
+		 g.drawImage(Assets.heart,10 + 32 * i,10, width/2, height/2, null);
+	 }
  }
 
  private BufferedImage getCurrentAnimationFrame() {
-  if(xMove <0)
-   return animLeft.getCurrentFrame();
-  else if(xMove>0)
-   return animRight.getCurrentFrame();
-  else if(yMove<0)
-   return animUp.getCurrentFrame();
-  else
-   return animDown.getCurrentFrame();
+	 if(xMove <0)
+		 return animLeft.getCurrentFrame();
+	 else if(xMove>0)
+		 return animRight.getCurrentFrame();
+	 else if(yMove<0)
+		 return animUp.getCurrentFrame();
+	 else
+		 return animDown.getCurrentFrame();
  }
  
  @Override
  public void hurt(int dmg) {
-  hurtTimer = System.currentTimeMillis() - lastHurtTimer;
-  if(hurtTimer < hurtCooldown)
-   return;
-  lastHurtTimer = System.currentTimeMillis();
-  health -= dmg;
-  Sound.pHit.play();
-  if(health<=0) {
-   active = false;
+	 hurtTimer = System.currentTimeMillis() - lastHurtTimer;
+	 if(hurtTimer < hurtCooldown)
+		 return;
+	 lastHurtTimer = System.currentTimeMillis();
+	 health -= dmg;
+	 Sound.pHit.play();
+	 if(health<=0) {
+		 active = false;
    
-   die();
-  }
+		 die();
+	 }
  }
 
  public Inventory getInventory() {
-  return inventory;
+	 return inventory;
  }
 
  public void setInventory(Inventory inventory) {
-  this.inventory = inventory;
+	 this.inventory = inventory;
  }
  
  public boolean getUpSpeed() {
-  return this.upSpeed;
+	 return this.upSpeed;
  }
  
  public boolean getUpPower() {
-  return this.upPower;
+	 return this.upPower;
  }
  
  public void gettingUpSpeed() {
-  upSpeed = true;
-  upSpeedTimer = lastSpeedTimer = System.currentTimeMillis(); 
+	 upSpeed = true;
+	 upSpeedTimer = lastSpeedTimer = System.currentTimeMillis(); 
  }
  
  public void gettingUpPower() {
-  upPower = true;
-  upPowerTimer = lastPowerTimer = System.currentTimeMillis(); 
+	 upPower = true;
+	 upPowerTimer = lastPowerTimer = System.currentTimeMillis(); 
  }
  
  public void drawPowerUp(Graphics g) {
-  g.drawImage(Assets.upPower,10,40, width/2, height/2, null);
+	 g.drawImage(Assets.upPower,10,40, width/2, height/2, null);
  }
  
  public void drawSpeedUp(Graphics g) {
-  g.drawImage(Assets.upSpeed,10,74, width/2, height/2, null);
+	 g.drawImage(Assets.upSpeed,10,74, width/2, height/2, null);
  }
 }
