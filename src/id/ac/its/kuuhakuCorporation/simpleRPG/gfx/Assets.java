@@ -9,7 +9,7 @@ public class Assets {
 	
 	public static Font font28;
 	
-	public static BufferedImage  dirt, grass, stone, tree,bush,herb;
+	public static BufferedImage  dirt, grass, stone, tree,bush,herb,rock;
 	public static BufferedImage[] player_down,
 									player_up,
 									player_left,
@@ -87,5 +87,7 @@ public class Assets {
 		health_bar_full = sheet.crop(3*width, 4*height, width, height);
 		health_bar_23 = sheet.crop(2*width, 4*height, width, height);
 		health_bar_13 = sheet.crop(1*width, 4*height, width, height);
+		
+		rock = sheet.crop(0, 2*height, width, height);
 	}
 }

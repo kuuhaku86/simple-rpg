@@ -43,6 +43,8 @@ public class World {
 		deployBush(20);
 
 		deployZombie(nZombie);
+		
+		deployRock(10);
 	}
 
 	public void setnZombie() {
@@ -70,7 +72,7 @@ public class World {
 
 		itemManager.render(g);
 		entityManager.render(g);
-
+		
 	}
 
 	public Tile getTile(int x, int y) {
@@ -124,6 +126,22 @@ public class World {
 			}
 		}
 	}
+	
+	private void deployRock(int numbers) {
+		int i = 0;
+		while(i < numbers) {
+			int height = 5 + (int)(Math.random()*15);
+			int width = 5 + (int)(Math.random()*15);
+			if(!collisionWithTile(width,height)) {
+				entityManager.addEntity(new Rock(handler,width*64,height*64));
+				entities[width][height] = 1;
+				entities[width][height] = 1;
+				i++;
+			}
+		}
+	}
+
+
 
 	private void loadWorld(String path) {
 		String file = Utils.loadFileAsString(path);
