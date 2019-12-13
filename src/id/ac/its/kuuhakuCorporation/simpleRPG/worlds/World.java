@@ -8,6 +8,7 @@ import id.ac.its.kuuhakuCorporation.simpleRPG.entities.EntityManager;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Player;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.creatures.Zombie;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Bush;
+import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Rock;
 import id.ac.its.kuuhakuCorporation.simpleRPG.entities.statics.Tree;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Assets;
 import id.ac.its.kuuhakuCorporation.simpleRPG.gfx.Text;
@@ -93,7 +94,6 @@ public class World {
 			if(!collisionWithTile(width,height)) {
 				entityManager.addEntity(new Zombie(handler,width*64,height*64));
 				entities[width][height] = 1;
-				entities[width][height] = 1;
 				i++;
 			}
 		}
@@ -134,7 +134,6 @@ public class World {
 			int width = 5 + (int)(Math.random()*15);
 			if(!collisionWithTile(width,height)) {
 				entityManager.addEntity(new Rock(handler,width*64,height*64));
-				entities[width][height] = 1;
 				entities[width][height] = 1;
 				i++;
 			}

@@ -13,6 +13,7 @@ public class Item {
 	public static Item herbItem = new Item(Assets.herb, "herb",0);
 	public static Item upPower = new Item(Assets.upPower, "power up",1);
 	public static Item upSpeed = new Item(Assets.upSpeed, "speed up",2);
+	public static Item rockItem = new Item(Assets.rock, "rock",2);
 	
 	public static final int ITEMWIDTH = 32, ITEMHEIGHT=32;
 	protected Handler handler;

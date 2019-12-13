@@ -19,6 +19,7 @@ public class Player extends Creature {
  private long lastAttackTimer, attackTimer = attackCooldown;
  private Inventory inventory;
  private ArrayList<Arrow> arrows;
+ private int powerUpDamage, ordinaryDamage;
  
  private boolean upPower,
      upSpeed;
@@ -82,7 +83,9 @@ public class Player extends Creature {
 		 if((upPowerTimer - lastPowerTimer) > upPowerlimit) {
 			 upPower = false;
 			 lastPowerTimer = System.currentTimeMillis();
+			 this.damage = ordinaryDamage;
 		 }
+		 this.damage = powerUpDamage;
 		 upPowerTimer = System.currentTimeMillis();
 	 }
   
@@ -224,6 +227,8 @@ public class Player extends Creature {
  public void gettingUpPower() {
 	 upPower = true;
 	 upPowerTimer = lastPowerTimer = System.currentTimeMillis(); 
+	 ordinaryDamage = this.damage;
+	 powerUpDamage = this.damage + 1;
  }
  
  public void drawPowerUp(Graphics g) {

@@ -67,6 +67,10 @@ public class Inventory {
 				Sound.up.play();
 				player.gettingUpPower();
 				reduceItem(selectedItem);
+			}else if(inventoryItems.get(selectedItem).getTexture().equals(Assets.rock)) {
+				Sound.up.play();
+				player.setDamage(player.getDamage() + 1);
+				reduceItem(selectedItem);
 			}
 		}
 		
